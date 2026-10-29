@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { User, Shield, Check, Award, Mail, Sparkles, AlertCircle } from 'lucide-react';
+import { User, Shield, Check, Award, AlertCircle } from 'lucide-react';
 
 export default function ProfilePage() {
   const { user, updateProfile } = useAuth();
@@ -37,16 +37,16 @@ export default function ProfilePage() {
   return (
     <div className="animate-fade-in" style={{ padding: '2.5rem 0 5rem' }}>
       <div className="app-container" style={{ maxWidth: '780px' }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.4rem', letterSpacing: '-0.02em' }}>
+        <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-forest)', marginBottom: '0.4rem', letterSpacing: '-0.02em' }}>
           Student Profile & Preferences
         </h1>
         <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '2rem' }}>
           Manage your account information and default question language.
         </p>
 
-        {/* Student ID Virtual Badge Card */}
+        {/* Student ID Badge Card — Forest-on-Sage */}
         <div className="card" style={{
-          background: 'linear-gradient(135deg, var(--nebula-base) 0%, var(--nebula-card) 100%)',
+          background: 'linear-gradient(135deg, var(--text-forest) 0%, #3a5040 100%)',
           color: '#ffffff',
           borderRadius: 'var(--radius-xl)',
           padding: '2rem',
@@ -54,34 +54,35 @@ export default function ProfilePage() {
           boxShadow: 'var(--shadow-lg)',
           position: 'relative',
           overflow: 'hidden',
-          border: '1px solid rgba(245, 231, 161, 0.2)'
+          border: 'none',
         }}>
+          {/* Sage glow blob */}
           <div style={{
             position: 'absolute',
-            top: '-20px',
-            right: '-20px',
-            width: '120px',
-            height: '120px',
+            top: '-30px',
+            right: '-30px',
+            width: '160px',
+            height: '160px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(203, 118, 74, 0.3) 0%, transparent 70%)',
-            pointerEvents: 'none'
+            background: 'radial-gradient(circle, rgba(220, 232, 213, 0.18) 0%, transparent 70%)',
+            pointerEvents: 'none',
           }} />
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <span style={{ fontSize: '1.5rem' }}>🐍</span>
               <span style={{ fontWeight: 800, letterSpacing: '-0.02em', fontSize: '1.15rem' }}>
-                thanglish<span style={{ color: 'var(--copper-base)' }}>.py</span> Student ID
+                thanglish<span style={{ color: 'var(--bg-sage)' }}>.py</span> Student ID
               </span>
             </div>
             <div style={{
               padding: '0.3rem 0.8rem',
               borderRadius: 'var(--radius-full)',
-              backgroundColor: 'rgba(245, 231, 161, 0.15)',
-              color: 'var(--yellow-base)',
+              backgroundColor: 'rgba(220, 232, 213, 0.18)',
+              color: 'var(--bg-sage)',
               fontSize: '0.78rem',
               fontWeight: 700,
-              border: '1px solid rgba(245, 231, 161, 0.3)'
+              border: '1px solid rgba(220, 232, 213, 0.35)',
             }}>
               VERIFIED LEARNER
             </div>
@@ -92,24 +93,42 @@ export default function ProfilePage() {
               width: '56px',
               height: '56px',
               borderRadius: '50%',
-              backgroundColor: 'var(--copper-base)',
+              backgroundColor: 'var(--bg-sage)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '1.5rem',
               fontWeight: 800,
-              color: '#fff'
+              color: 'var(--text-forest)',
             }}>
               {user?.full_name?.charAt(0).toUpperCase() || 'S'}
             </div>
             <div>
               <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>{user?.full_name}</div>
-              <div style={{ fontSize: '0.85rem', color: '#c9c3dd' }}>{user?.email}</div>
-              <div style={{ marginTop: '0.4rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                <span className="badge" style={{ backgroundColor: 'var(--copper-base)', color: '#fff', fontWeight: 800 }}>
+              <div style={{ fontSize: '0.85rem', opacity: 0.75, marginTop: '0.2rem' }}>{user?.email}</div>
+              <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  padding: '0.25rem 0.65rem',
+                  borderRadius: 'var(--radius-full)',
+                  backgroundColor: 'var(--bg-sage)',
+                  color: 'var(--text-forest)',
+                  fontWeight: 800,
+                  fontSize: '0.8rem',
+                }}>
                   ID: {user?.user_id}
                 </span>
-                <span className="badge" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: '#fff' }}>
+                <span style={{
+                  display: 'inline-flex',
+                  padding: '0.25rem 0.65rem',
+                  borderRadius: 'var(--radius-full)',
+                  backgroundColor: 'rgba(255,255,255,0.12)',
+                  color: '#fff',
+                  fontSize: '0.78rem',
+                  fontWeight: 600,
+                }}>
                   {user?.role?.toUpperCase()}
                 </span>
               </div>
@@ -119,23 +138,21 @@ export default function ProfilePage() {
 
         {/* Profile Settings Form */}
         <div className="card" style={{
-          backgroundColor: 'var(--bg-elevated)',
+          backgroundColor: 'var(--surface-white)',
           borderRadius: 'var(--radius-xl)',
           padding: '2rem',
-          border: '1px solid var(--border-color)',
-          boxShadow: 'var(--shadow-sm)'
+          border: '1px solid var(--border-subtle)',
+          boxShadow: 'var(--shadow-sm)',
         }}>
           {message && (
             <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
+              display: 'flex', alignItems: 'center', gap: '0.5rem',
               padding: '0.75rem 1rem',
               backgroundColor: 'var(--success-subtle)',
               color: 'var(--success)',
               borderRadius: 'var(--radius-md)',
               marginBottom: '1.5rem',
-              fontSize: '0.9rem'
+              fontSize: '0.9rem',
             }}>
               <Check size={18} />
               <span>{message}</span>
@@ -144,15 +161,13 @@ export default function ProfilePage() {
 
           {error && (
             <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
+              display: 'flex', alignItems: 'center', gap: '0.5rem',
               padding: '0.75rem 1rem',
               backgroundColor: 'var(--error-subtle)',
               color: 'var(--error)',
               borderRadius: 'var(--radius-md)',
               marginBottom: '1.5rem',
-              fontSize: '0.9rem'
+              fontSize: '0.9rem',
             }}>
               <AlertCircle size={18} />
               <span>{error}</span>
@@ -161,9 +176,7 @@ export default function ProfilePage() {
 
           <form onSubmit={handleSave}>
             <div className="form-group">
-              <label className="form-label" htmlFor="profile-name">
-                Full Name
-              </label>
+              <label className="form-label" htmlFor="profile-name">Full Name</label>
               <input
                 id="profile-name"
                 type="text"
@@ -184,14 +197,12 @@ export default function ProfilePage() {
                 disabled
                 value={user?.email || ''}
                 className="form-input"
-                style={{ opacity: 0.7, cursor: 'not-allowed' }}
+                style={{ opacity: 0.65, cursor: 'not-allowed', backgroundColor: 'var(--bg-muted)' }}
               />
             </div>
 
             <div className="form-group">
-              <label className="form-label">
-                Preferred Question Language
-              </label>
+              <label className="form-label">Preferred Question Language</label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
                 {languages.map(l => (
                   <button
@@ -209,9 +220,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="form-group">
-              <label className="form-label">
-                Current Level Track
-              </label>
+              <label className="form-label">Current Level Track</label>
               <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                 {['Beginner', 'Intermediate', 'Advanced'].map(lvl => (
                   <button
@@ -230,7 +239,7 @@ export default function ProfilePage() {
               type="submit"
               disabled={saving}
               className="btn btn-primary"
-              style={{ marginTop: '1rem', padding: '0.75rem 1.5rem' }}
+              style={{ marginTop: '1.25rem', padding: '0.75rem 1.75rem' }}
             >
               <span>{saving ? 'Saving Changes...' : 'Save Profile'}</span>
             </button>

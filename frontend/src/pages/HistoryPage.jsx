@@ -58,8 +58,8 @@ export default function HistoryPage() {
             <div style={{
               width: '32px',
               height: '32px',
-              border: '3px solid var(--copper-subtle)',
-              borderTopColor: 'var(--copper-base)',
+              border: '3px solid var(--bg-sage)',
+              borderTopColor: 'var(--text-forest)',
               borderRadius: '50%',
               margin: '0 auto 1rem',
               animation: 'spin 0.8s linear infinite'
@@ -125,7 +125,7 @@ export default function HistoryPage() {
                         {item.created_at ? new Date(item.created_at).toLocaleString() : 'N/A'}
                       </td>
                       <td style={{ padding: '1rem 1.25rem' }}>
-                        <span className="badge badge-copper">
+                        <span className="badge">
                           {item.level || 'Mixed'}
                         </span>
                       </td>

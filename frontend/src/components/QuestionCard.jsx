@@ -89,7 +89,7 @@ export default function QuestionCard({
         marginBottom: '1.5rem'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-          <span className="badge badge-copper">
+          <span className="badge badge-accent">
             {question.level}
           </span>
           {question.topic_name && (
@@ -97,7 +97,7 @@ export default function QuestionCard({
               {question.topic_name}
             </span>
           )}
-          <span className="badge" style={{ backgroundColor: 'var(--yellow-subtle)', color: 'var(--badge-text)' }}>
+          <span className="badge">
             <Award size={13} />
             <span>{question.points} Points</span>
           </span>
@@ -138,7 +138,7 @@ export default function QuestionCard({
               width: '36px',
               height: '36px',
               padding: 0,
-              color: isBookmarked ? 'var(--copper-base)' : 'var(--text-muted)'
+              color: isBookmarked ? 'var(--text-forest)' : 'var(--text-olive)'
             }}
             title={isBookmarked ? 'Remove Bookmark' : 'Bookmark Question'}
           >
@@ -183,12 +183,12 @@ export default function QuestionCard({
 
           {/* Translated Panel (Tanglish or Tamil) */}
           <div style={{
-            backgroundColor: 'var(--bg-subtle)',
+            backgroundColor: 'var(--bg-sage)',
             padding: '1.25rem',
             borderRadius: 'var(--radius-lg)',
-            borderLeft: '4px solid var(--copper-base)'
+            borderLeft: '4px solid var(--text-forest)'
           }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--copper-base)', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-forest)', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
               {language === 'tanglish' ? 'Tanglish (Spoken Tamil in English)' : 'தமிழ் (Tamil Script)'}
             </div>
             <p className={language === 'ta' ? 'font-tamil' : ''} style={{
@@ -207,7 +207,7 @@ export default function QuestionCard({
           padding: '1.25rem',
           borderRadius: 'var(--radius-lg)',
           marginBottom: '1.5rem',
-          borderLeft: '4px solid var(--copper-base)'
+          borderLeft: '4px solid var(--text-olive)'
         }}>
           <p className={language === 'ta' ? 'font-tamil' : ''} style={{
             fontSize: '1.1rem',
@@ -245,8 +245,8 @@ export default function QuestionCard({
                 bgColor = 'var(--error-subtle)';
               }
             } else if (isSelected) {
-              borderColor = 'var(--copper-base)';
-              bgColor = 'var(--copper-subtle)';
+              borderColor = 'var(--text-forest)';
+              bgColor = 'var(--bg-sage)';
             }
 
             return (
@@ -274,8 +274,8 @@ export default function QuestionCard({
                   justifyContent: 'center',
                   fontWeight: 700,
                   fontSize: '0.85rem',
-                  backgroundColor: isSelected ? 'var(--copper-base)' : 'var(--bg-muted)',
-                  color: isSelected ? '#ffffff' : 'var(--text-secondary)',
+                  backgroundColor: isSelected ? 'var(--text-forest)' : 'var(--bg-muted)',
+                  color: isSelected ? '#ffffff' : 'var(--text-olive)',
                   flexShrink: 0
                 }}>
                   {opt.option_key}
@@ -297,15 +297,15 @@ export default function QuestionCard({
             className="btn btn-outline btn-sm"
             style={{ borderRadius: 'var(--radius-full)' }}
           >
-            <Lightbulb size={15} style={{ color: 'var(--yellow-dark)' }} />
+            <Lightbulb size={15} style={{ color: 'var(--text-olive)' }} />
             <span>{showHint ? 'Hide Hint' : 'Need a Hint?'}</span>
           </button>
           {showHint && (
             <div className="animate-fade-in" style={{
               marginTop: '0.5rem',
               padding: '0.85rem 1.25rem',
-              backgroundColor: 'var(--yellow-subtle)',
-              border: '1px solid var(--yellow-border)',
+              backgroundColor: 'var(--bg-sage)',
+              border: '1px solid var(--border-olive)',
               borderRadius: 'var(--radius-md)',
               fontSize: '0.9rem',
               color: 'var(--text-primary)'

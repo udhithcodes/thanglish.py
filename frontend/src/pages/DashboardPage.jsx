@@ -33,8 +33,8 @@ export default function DashboardPage() {
         <div style={{
           width: '36px',
           height: '36px',
-          border: '3px solid var(--copper-subtle)',
-          borderTopColor: 'var(--copper-base)',
+          border: '3px solid var(--bg-sage)',
+          borderTopColor: 'var(--text-forest)',
           borderRadius: '50%',
           margin: '0 auto 1rem',
           animation: 'spin 0.8s linear infinite'
@@ -75,10 +75,10 @@ export default function DashboardPage() {
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
-              <span className="badge badge-copper">
+              <span className="badge badge-accent">
                 {data.current_level || 'Beginner'} Track
               </span>
-              <span className="badge" style={{ backgroundColor: 'var(--yellow-subtle)', color: 'var(--badge-text)' }}>
+              <span className="badge" style={{ backgroundColor: 'var(--bg-muted)', color: 'var(--text-forest)' }}>
                 ID: {user?.user_id}
               </span>
             </div>
@@ -120,9 +120,9 @@ export default function DashboardPage() {
               <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
                 Total Points
               </span>
-              <Award size={18} style={{ color: 'var(--copper-base)' }} />
+              <Award size={18} style={{ color: 'var(--text-forest)' }} />
             </div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--copper-base)' }}>
+            <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-forest)' }}>
               {data.total_points}
             </div>
             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
@@ -183,12 +183,12 @@ export default function DashboardPage() {
               <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
                 Saved Bookmarks
               </span>
-              <Bookmark size={18} style={{ color: 'var(--yellow-dark)' }} />
+              <Bookmark size={18} style={{ color: 'var(--text-olive)' }} />
             </div>
             <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)' }}>
               {data.bookmarked_count}
             </div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--copper-base)' }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-olive)' }}>
               <Link to="/bookmarks" style={{ fontWeight: 600 }}>Review bookmarks →</Link>
             </div>
           </div>
@@ -197,8 +197,8 @@ export default function DashboardPage() {
         {/* Personalized Recommendations */}
         {data.recommendations && data.recommendations.length > 0 && (
           <div className="card" style={{
-            backgroundColor: 'var(--yellow-subtle)',
-            border: '1px solid var(--yellow-border)',
+            backgroundColor: 'var(--bg-sage)',
+            border: '1px solid var(--border-olive)',
             borderRadius: 'var(--radius-lg)',
             padding: '1.25rem 1.5rem',
             marginBottom: '2rem'
@@ -248,7 +248,7 @@ export default function DashboardPage() {
                       <div style={{ height: '6px', backgroundColor: 'var(--bg-muted)', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
                         <div style={{
                           height: '100%',
-                          backgroundColor: pct >= 70 ? 'var(--success)' : 'var(--copper-base)',
+                          backgroundColor: pct >= 70 ? 'var(--success)' : 'var(--text-forest)',
                           width: `${pct}%`,
                           transition: 'width 0.3s ease'
                         }} />

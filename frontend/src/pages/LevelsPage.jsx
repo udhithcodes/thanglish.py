@@ -7,7 +7,8 @@ const TRACKS = [
     id: 'Beginner',
     title: 'Beginner Track',
     badge: 'Level 1',
-    color: '#34A853',
+    cssColor: 'var(--success)',
+    rawColor: '#34A853',
     icon: Sparkles,
     tagline: 'Foundation: Variables, Loops, Conditionals & Collections',
     description: 'Perfect for students writing their first Python programs. Master basic syntax, data types, if-else logic, loops, and built-in data structures with bilingual explanations.',
@@ -27,7 +28,8 @@ const TRACKS = [
     id: 'Intermediate',
     title: 'Intermediate Track',
     badge: 'Level 2',
-    color: '#CB764A',
+    cssColor: '#5C7A60',
+    rawColor: '#5C7A60',
     icon: Zap,
     tagline: 'Fluency: Comprehensions, Strings, Files & Functional Python',
     description: 'Take your Python logic to the next level. Write pythonic code, parse complex strings, work with file I/O, safely handle exceptions, and utilize lambda functions.',
@@ -45,7 +47,8 @@ const TRACKS = [
     id: 'Advanced',
     title: 'Advanced Track',
     badge: 'Level 3',
-    color: '#b8982a',
+    cssColor: '#28382F',
+    rawColor: '#28382F',
     icon: Layers,
     tagline: 'Mastery: OOP, Decorators, Generators & DSA',
     description: 'Deep dive into professional Python engineering. Master object-oriented design, custom classes, closures, memory-efficient generators, and algorithm complexity.',
@@ -72,9 +75,9 @@ export default function LevelsPage() {
             gap: '0.4rem',
             padding: '0.35rem 0.9rem',
             borderRadius: 'var(--radius-full)',
-            backgroundColor: 'var(--yellow-subtle)',
-            color: 'var(--badge-text)',
-            border: '1px solid var(--yellow-border)',
+            backgroundColor: 'var(--bg-sage)',
+            color: 'var(--text-forest)',
+            border: '1px solid var(--border-olive)',
             fontWeight: 700,
             fontSize: '0.85rem',
             marginBottom: '1rem'
@@ -85,11 +88,11 @@ export default function LevelsPage() {
           <h1 style={{
             fontSize: 'clamp(2rem, 4vw, 2.8rem)',
             fontWeight: 800,
-            color: 'var(--text-primary)',
+            color: 'var(--text-forest)',
             letterSpacing: '-0.02em',
             marginBottom: '1rem'
           }}>
-            Choose Your <span style={{ color: 'var(--copper-base)' }}>Learning Track</span>
+            Choose Your Learning Track
           </h1>
           <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
             Every level provides questions explained in English, Tanglish, and Tamil.
@@ -129,7 +132,7 @@ export default function LevelsPage() {
                   left: 0,
                   right: 0,
                   height: '5px',
-                  backgroundColor: track.color
+                  backgroundColor: track.cssColor
                 }} />
 
                 {/* Header */}
@@ -142,11 +145,11 @@ export default function LevelsPage() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: track.color
+                    color: track.cssColor
                   }}>
                     <IconComponent size={22} />
                   </div>
-                  <span className="badge" style={{ backgroundColor: 'var(--bg-muted)', fontWeight: 700 }}>
+                  <span className="badge badge-accent" style={{ fontWeight: 700 }}>
                     {track.badge}
                   </span>
                 </div>
@@ -154,7 +157,7 @@ export default function LevelsPage() {
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
                   {track.title}
                 </h2>
-                <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--copper-base)', marginBottom: '1rem' }}>
+                <div style={{ fontSize: '0.85rem', fontWeight: 600, color: track.cssColor, marginBottom: '1rem' }}>
                   {track.tagline}
                 </div>
 
@@ -170,7 +173,7 @@ export default function LevelsPage() {
                   <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     {track.topics.map((t, idx) => (
                       <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.88rem', color: 'var(--text-primary)' }}>
-                        <CheckCircle2 size={15} style={{ color: track.color, flexShrink: 0 }} />
+                        <CheckCircle2 size={15} style={{ color: track.cssColor, flexShrink: 0 }} />
                         <span>{t}</span>
                       </li>
                     ))}

@@ -142,8 +142,8 @@ export default function AdminPage() {
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
-              <Shield size={20} style={{ color: 'var(--copper-base)' }} />
-              <span className="badge badge-copper">Administrator Mode</span>
+              <Shield size={20} style={{ color: 'var(--text-forest)' }} />
+              <span className="badge badge-accent">Administrator Mode</span>
             </div>
             <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
               Platform Administration
@@ -201,7 +201,7 @@ export default function AdminPage() {
           }}>
             <div className="card" style={{ backgroundColor: 'var(--bg-elevated)', padding: '1.25rem', borderRadius: 'var(--radius-lg)' }}>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Total Users</div>
-              <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--copper-base)' }}>{stats.total_users}</div>
+              <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-forest)' }}>{stats.total_users}</div>
             </div>
             <div className="card" style={{ backgroundColor: 'var(--bg-elevated)', padding: '1.25rem', borderRadius: 'var(--radius-lg)' }}>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Question Bank</div>
@@ -209,7 +209,7 @@ export default function AdminPage() {
             </div>
             <div className="card" style={{ backgroundColor: 'var(--bg-elevated)', padding: '1.25rem', borderRadius: 'var(--radius-lg)' }}>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Quiz Attempts</div>
-              <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--yellow-dark)' }}>{stats.total_attempts}</div>
+              <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-forest)' }}>{stats.total_attempts}</div>
             </div>
             <div className="card" style={{ backgroundColor: 'var(--bg-elevated)', padding: '1.25rem', borderRadius: 'var(--radius-lg)' }}>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Answers Evaluated</div>
@@ -229,7 +229,7 @@ export default function AdminPage() {
             borderRadius: 'var(--radius-xl)',
             padding: '2rem',
             marginBottom: '2.5rem',
-            border: '2px solid var(--copper-border)',
+            border: '1px solid var(--border-olive)',
             boxShadow: 'var(--shadow-lg)'
           }}>
             <h2 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
@@ -428,7 +428,7 @@ export default function AdminPage() {
                     <td style={{ padding: '0.85rem 1.25rem', fontWeight: 700 }}>#{q.id}</td>
                     <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-primary)', fontWeight: 600 }}>{q.title}</td>
                     <td style={{ padding: '0.85rem 1.25rem' }}>
-                      <span className="badge badge-copper">{q.level}</span>
+                      <span className="badge badge-accent">{q.level}</span>
                     </td>
                     <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-secondary)' }}>{q.topic_name || '-'}</td>
                     <td style={{ padding: '0.85rem 1.25rem' }}>

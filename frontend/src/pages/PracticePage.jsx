@@ -144,7 +144,7 @@ export default function PracticePage() {
               alignItems: 'center',
               gap: '0.6rem'
             }}>
-              <Sparkles size={26} style={{ color: 'var(--copper-base)' }} />
+              <Sparkles size={26} style={{ color: 'var(--text-olive)' }} />
               <span>Python Practice Arena</span>
             </h1>
             <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
@@ -242,7 +242,7 @@ export default function PracticePage() {
               paddingBottom: '0.75rem'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}>
-                <Terminal size={18} style={{ color: 'var(--yellow-base)' }} />
+                <Terminal size={18} style={{ color: 'var(--bg-sage)' }} />
                 <span>Interactive Python Sandbox (Runs on Server)</span>
               </div>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -251,7 +251,7 @@ export default function PracticePage() {
                   disabled={sandboxRunning}
                   className="btn btn-sm"
                   style={{
-                    backgroundColor: 'var(--copper-base)',
+                    backgroundColor: 'var(--text-forest)',
                     color: '#fff',
                     borderRadius: 'var(--radius-full)'
                   }}
@@ -323,8 +323,8 @@ export default function PracticePage() {
             <div style={{
               width: '32px',
               height: '32px',
-              border: '3px solid var(--copper-subtle)',
-              borderTopColor: 'var(--copper-base)',
+              border: '3px solid var(--bg-sage)',
+              borderTopColor: 'var(--text-forest)',
               borderRadius: '50%',
               margin: '0 auto 1rem',
               animation: 'spin 0.8s linear infinite'
@@ -350,7 +350,7 @@ export default function PracticePage() {
             borderRadius: 'var(--radius-xl)',
             border: '1px solid var(--border-color)'
           }}>
-            <BookOpen size={40} style={{ color: 'var(--copper-base)', margin: '0 auto 1rem' }} />
+            <BookOpen size={40} style={{ color: 'var(--text-olive)', margin: '0 auto 1rem' }} />
             <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
               No Questions Found
             </h3>
@@ -397,7 +397,7 @@ export default function PracticePage() {
                 }}>
                   <div style={{
                     height: '100%',
-                    backgroundColor: 'var(--copper-base)',
+                    backgroundColor: 'var(--text-forest)',
                     width: `${((currentIndex + 1) / questions.length) * 100}%`,
                     transition: 'width 0.3s ease'
                   }} />

@@ -84,14 +84,14 @@ export default function SignupPage() {
             width: '48px',
             height: '48px',
             borderRadius: '14px',
-            backgroundColor: 'var(--copper-base)',
+            backgroundColor: 'var(--text-forest)',
             color: '#fff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '1.4rem',
             margin: '0 auto 1rem',
-            boxShadow: '0 4px 14px rgba(203, 118, 74, 0.35)'
+            boxShadow: '0 4px 14px rgba(40, 56, 47, 0.28)'
           }}>
             🐍
           </div>
@@ -270,7 +270,7 @@ export default function SignupPage() {
           color: 'var(--text-secondary)'
         }}>
           Already have an account?{' '}
-          <Link to="/login" style={{ fontWeight: 700, color: 'var(--copper-base)' }}>
+          <Link to="/login" style={{ fontWeight: 700, color: 'var(--text-forest)' }}>
             Sign In
           </Link>
         </div>

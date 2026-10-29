@@ -1,138 +1,98 @@
 /* ==========================================================================
-   thanglish.py Design System & Official Brand Palette
-   Palette:
-     Old Copper:    #CB764A  (Primary CTAs, highlights, selected items)
-     Butter Yellow: #F5E7A1  (Badges, accents, progress indicators)
-     Nebula:        #292544  (Atmospheric dark mode, navigation, code editor)
-     Seashell:      #FFF5EE  (Warm light mode, cards, reading surfaces)
+   thanglish.py — Official Design System
+   Theme: Sage & Paper (Natural · Quiet · Focused)
+   ─────────────────────────────────────────────────────────────────────────
+   Paper   #F7F6EF  Main backgrounds, app canvas, paper reading surfaces
+   Sage    #DCE8D5  Badges, secondary buttons, active nav highlights
+   Olive   #78917A  Borders, muted text, secondary icons, inactive states
+   Forest  #28382F  Primary text, headings, primary buttons, active states
+   White   #FFFFFF  / #FBFBF7  Card surfaces, input containers
    ========================================================================== */
 
 :root {
-  /* Brand Primitives */
-  --copper-base: #CB764A;
-  --copper-hover: #b96439;
-  --copper-active: #a2552d;
-  --copper-subtle: rgba(203, 118, 74, 0.12);
-  --copper-border: rgba(203, 118, 74, 0.35);
+  /* ── Sage & Paper Core Palette ── */
+  --bg-paper:        #F7F6EF;
+  --bg-sage:         #DCE8D5;
+  --bg-sage-hover:   #C9D9C2;
+  --bg-sage-subtle:  rgba(220, 232, 213, 0.45);
+  --text-olive:      #78917A;
+  --text-forest:     #28382F;
+  --text-forest-muted: rgba(40, 56, 47, 0.65);
+  --surface-card:    #FBFBF7;
+  --surface-white:   #FFFFFF;
+  --border-subtle:   #DCE8D5;
+  --border-olive:    rgba(120, 145, 122, 0.35);
+  --border-strong:   rgba(120, 145, 122, 0.55);
 
-  --yellow-base: #F5E7A1;
-  --yellow-hover: #faefb8;
-  --yellow-dark: #b8982a;
-  --yellow-subtle: rgba(245, 231, 161, 0.18);
-  --yellow-border: rgba(245, 231, 161, 0.4);
+  /* ── Semantic Colours (status) ── */
+  --success:         #2E7D32;
+  --success-subtle:  rgba(46, 125, 50, 0.12);
+  --error:           #C62828;
+  --error-subtle:    rgba(198, 40, 40, 0.1);
+  --info:            #1565C0;
+  --info-subtle:     rgba(21, 101, 192, 0.1);
 
-  --nebula-deep: #19162c;
-  --nebula-base: #292544;
-  --nebula-card: #342f56;
-  --nebula-hover: #3f3969;
-  --nebula-border: rgba(245, 231, 161, 0.12);
-
-  --seashell-base: #FFF5EE;
-  --seashell-pure: #ffffff;
-  --seashell-muted: #f4eae1;
-  --seashell-card: #ffffff;
-  --seashell-border: #e6dacd;
-
-  --success: #34A853;
-  --success-subtle: rgba(52, 168, 83, 0.15);
-  --error: #E5484D;
-  --error-subtle: rgba(229, 72, 77, 0.15);
-  --info: #3E82F7;
-  --info-subtle: rgba(62, 130, 247, 0.15);
-
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* ── Typography ── */
+  --font-sans:  'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-tamil: 'Noto Sans Tamil', 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-mono:  'Fira Code', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 22px;
+  /* ── Border Radii ── */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   20px;
   --radius-full: 9999px;
 
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-bounce: 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
+  /* ── Transitions ── */
+  --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 260ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 360ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
-/* Light Theme (Default: Warm Seashell Reading Canvas) */
-[data-theme='light'] {
-  --bg-app: var(--seashell-base);
-  --bg-surface: var(--seashell-card);
-  --bg-elevated: #ffffff;
-  --bg-muted: var(--seashell-muted);
-  --bg-subtle: rgba(203, 118, 74, 0.06);
+  /* ── Semantic Tokens (all mapped to Sage & Paper) ── */
+  --bg-app:          var(--bg-paper);
+  --bg-surface:      var(--surface-card);
+  --bg-elevated:     var(--surface-white);
+  --bg-muted:        #EEEEE8;
+  --bg-subtle:       var(--bg-sage-subtle);
 
-  --border-color: var(--seashell-border);
-  --border-strong: #d4c5b5;
+  --border-color:    var(--border-subtle);
 
-  --text-primary: #221c2e;
-  --text-secondary: #574d64;
-  --text-muted: #827891;
-  --text-inverse: #ffffff;
+  --text-primary:    var(--text-forest);
+  --text-secondary:  #4A5E4D;
+  --text-muted:      var(--text-olive);
+  --text-inverse:    #FFFFFF;
 
-  --btn-primary-bg: var(--copper-base);
-  --btn-primary-text: #ffffff;
-  --btn-primary-hover: var(--copper-hover);
+  /* Primary Buttons → Forest */
+  --btn-primary-bg:   var(--text-forest);
+  --btn-primary-text: #FFFFFF;
+  --btn-primary-hover: #1C2820;
 
-  --btn-secondary-bg: var(--seashell-muted);
-  --btn-secondary-text: var(--text-primary);
-  --btn-secondary-hover: #e8ded2;
+  /* Secondary Buttons → Sage */
+  --btn-secondary-bg:   var(--bg-sage);
+  --btn-secondary-text: var(--text-forest);
+  --btn-secondary-hover: var(--bg-sage-hover);
 
-  --badge-bg: var(--yellow-subtle);
-  --badge-text: #735905;
-  --badge-border: var(--yellow-border);
+  /* Badges → Sage */
+  --badge-bg:     var(--bg-sage);
+  --badge-text:   var(--text-forest);
+  --badge-border: var(--border-olive);
 
-  --code-bg: #1f1b33;
-  --code-text: #e7e2fa;
-  --code-inline-bg: rgba(41, 37, 68, 0.08);
-  --code-inline-text: var(--copper-hover);
+  /* Code editor stays dark for legibility */
+  --code-bg:         #1E2820;
+  --code-text:       #D4E8C8;
+  --code-inline-bg:  rgba(40, 56, 47, 0.08);
+  --code-inline-text: var(--text-forest);
 
-  --nav-bg: rgba(255, 245, 238, 0.85);
-  --nav-border: var(--seashell-border);
+  /* Nav */
+  --nav-bg:     rgba(247, 246, 239, 0.94);
+  --nav-border: var(--border-subtle);
 
-  --shadow-sm: 0 1px 3px rgba(41, 37, 68, 0.06);
-  --shadow-md: 0 4px 12px rgba(41, 37, 68, 0.08);
-  --shadow-lg: 0 12px 28px rgba(41, 37, 68, 0.12);
-}
+  /* Shadows — earthy green-tinted */
+  --shadow-sm:  0 1px 4px rgba(40, 56, 47, 0.07);
+  --shadow-md:  0 4px 16px rgba(40, 56, 47, 0.09);
+  --shadow-lg:  0 12px 36px rgba(40, 56, 47, 0.13);
 
-/* Dark Theme (Nebula Atmospheric Space) */
-[data-theme='dark'] {
-  --bg-app: var(--nebula-deep);
-  --bg-surface: var(--nebula-base);
-  --bg-elevated: var(--nebula-card);
-  --bg-muted: #38325c;
-  --bg-subtle: rgba(245, 231, 161, 0.05);
-
-  --border-color: var(--nebula-border);
-  --border-strong: rgba(245, 231, 161, 0.22);
-
-  --text-primary: #fdfaf6;
-  --text-secondary: #c9c3dd;
-  --text-muted: #958ea8;
-  --text-inverse: #19162c;
-
-  --btn-primary-bg: var(--copper-base);
-  --btn-primary-text: #ffffff;
-  --btn-primary-hover: var(--copper-hover);
-
-  --btn-secondary-bg: var(--nebula-card);
-  --btn-secondary-text: #fdfaf6;
-  --btn-secondary-hover: var(--nebula-hover);
-
-  --badge-bg: rgba(245, 231, 161, 0.15);
-  --badge-text: var(--yellow-base);
-  --badge-border: rgba(245, 231, 161, 0.3);
-
-  --code-bg: #141224;
-  --code-text: #f3efff;
-  --code-inline-bg: rgba(245, 231, 161, 0.12);
-  --code-inline-text: var(--yellow-base);
-
-  --nav-bg: rgba(25, 22, 44, 0.88);
-  --nav-border: rgba(245, 231, 161, 0.1);
-
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
+  /* Accent (for progress bars, links, highlights) */
+  --accent-primary: var(--text-forest);
 }

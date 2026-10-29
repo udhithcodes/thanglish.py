@@ -46,7 +46,7 @@ export default function BookmarksPage() {
         confetti({
           particleCount: 60,
           spread: 60,
-          colors: ['#CB764A', '#F5E7A1', '#34A853']
+          colors: ['#28382F', '#DCE8D5', '#34A853']
         });
       }
     } catch (err) {
@@ -64,8 +64,8 @@ export default function BookmarksPage() {
             gap: '0.4rem',
             padding: '0.35rem 0.9rem',
             borderRadius: 'var(--radius-full)',
-            backgroundColor: 'var(--copper-subtle)',
-            color: 'var(--copper-base)',
+            backgroundColor: 'var(--bg-sage)',
+            color: 'var(--text-forest)',
             fontWeight: 700,
             fontSize: '0.85rem',
             marginBottom: '0.75rem'
@@ -86,8 +86,8 @@ export default function BookmarksPage() {
             <div style={{
               width: '32px',
               height: '32px',
-              border: '3px solid var(--copper-subtle)',
-              borderTopColor: 'var(--copper-base)',
+              border: '3px solid var(--bg-sage)',
+              borderTopColor: 'var(--text-forest)',
               borderRadius: '50%',
               margin: '0 auto 1rem',
               animation: 'spin 0.8s linear infinite'

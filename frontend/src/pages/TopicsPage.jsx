@@ -40,9 +40,9 @@ export default function TopicsPage() {
             gap: '0.4rem',
             padding: '0.35rem 0.9rem',
             borderRadius: 'var(--radius-full)',
-            backgroundColor: 'var(--yellow-subtle)',
-            color: 'var(--badge-text)',
-            border: '1px solid var(--yellow-border)',
+            backgroundColor: 'var(--bg-sage)',
+            color: 'var(--text-forest)',
+            border: '1px solid var(--border-olive)',
             fontWeight: 700,
             fontSize: '0.85rem',
             marginBottom: '1rem'
@@ -57,7 +57,7 @@ export default function TopicsPage() {
             letterSpacing: '-0.02em',
             marginBottom: '1rem'
           }}>
-            Python <span style={{ color: 'var(--copper-base)' }}>Topics & Concepts</span>
+            Python Topics & Concepts
           </h1>
           <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
             Browse through 15 fundamental and advanced Python concepts. Each topic has practice questions and timed quizzes.
@@ -117,8 +117,8 @@ export default function TopicsPage() {
             <div style={{
               width: '32px',
               height: '32px',
-              border: '3px solid var(--copper-subtle)',
-              borderTopColor: 'var(--copper-base)',
+              border: '3px solid var(--bg-sage)',
+              borderTopColor: 'var(--text-forest)',
               borderRadius: '50%',
               margin: '0 auto 1rem',
               animation: 'spin 0.8s linear infinite'
@@ -165,8 +165,8 @@ export default function TopicsPage() {
                       width: '40px',
                       height: '40px',
                       borderRadius: '10px',
-                      backgroundColor: 'var(--copper-subtle)',
-                      color: 'var(--copper-base)',
+                      backgroundColor: 'var(--bg-sage)',
+                      color: 'var(--text-forest)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'

@@ -116,7 +116,7 @@ export default function QuizPage() {
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#CB764A', '#F5E7A1', '#34A853', '#ffffff']
+          colors: ['#28382F', '#DCE8D5', '#34A853', '#ffffff']
         });
       }
     } catch (err) {
@@ -151,8 +151,8 @@ export default function QuizPage() {
                 width: '52px',
                 height: '52px',
                 borderRadius: '16px',
-                backgroundColor: 'var(--copper-subtle)',
-                color: 'var(--copper-base)',
+                backgroundColor: 'var(--bg-sage)',
+                color: 'var(--text-forest)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -274,7 +274,7 @@ export default function QuizPage() {
             }}>
               <div style={{ backgroundColor: 'var(--bg-muted)', padding: '1rem', borderRadius: 'var(--radius-md)' }}>
                 <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Accuracy</div>
-                <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--copper-base)' }}>
+                <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-forest)' }}>
                   {Math.round(result.accuracy)}%
                 </div>
               </div>
@@ -362,11 +362,11 @@ export default function QuizPage() {
               border: '1px solid var(--border-color)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <Clock size={18} style={{ color: 'var(--copper-base)' }} />
+                <Clock size={18} style={{ color: 'var(--text-olive)' }} />
                 <span className="font-mono" style={{ fontWeight: 700, fontSize: '1.05rem' }}>
                   {formatTime(timerSeconds)}
                 </span>
-                <span className="badge badge-copper" style={{ marginLeft: '0.5rem' }}>
+                <span className="badge" style={{ marginLeft: '0.5rem' }}>
                   {level}
                 </span>
               </div>
@@ -396,7 +396,7 @@ export default function QuizPage() {
             }}>
               <div style={{
                 height: '100%',
-                backgroundColor: 'var(--copper-base)',
+                backgroundColor: 'var(--text-forest)',
                 width: `${((currentIndex + 1) / questions.length) * 100}%`,
                 transition: 'width 0.25s ease'
               }} />
@@ -424,7 +424,7 @@ export default function QuizPage() {
                   padding: '1.2rem',
                   backgroundColor: 'var(--bg-muted)',
                   borderRadius: 'var(--radius-md)',
-                  borderLeft: '4px solid var(--copper-base)',
+                  borderLeft: '4px solid var(--text-olive)',
                   marginBottom: '1.5rem',
                   fontSize: '1.05rem',
                   lineHeight: 1.6
@@ -452,8 +452,8 @@ export default function QuizPage() {
                           gap: '0.9rem',
                           padding: '0.9rem 1.2rem',
                           borderRadius: 'var(--radius-md)',
-                          border: `2px solid ${isSelected ? 'var(--copper-base)' : 'var(--border-color)'}`,
-                          backgroundColor: isSelected ? 'var(--copper-subtle)' : 'var(--bg-surface)',
+                          border: `2px solid ${isSelected ? 'var(--text-forest)' : 'var(--border-olive)'}`,
+                          backgroundColor: isSelected ? 'var(--bg-sage)' : 'var(--surface-white)',
                           cursor: 'pointer',
                           transition: 'all var(--transition-fast)'
                         }}
@@ -462,8 +462,8 @@ export default function QuizPage() {
                           width: '30px',
                           height: '30px',
                           borderRadius: '50%',
-                          backgroundColor: isSelected ? 'var(--copper-base)' : 'var(--bg-muted)',
-                          color: isSelected ? '#fff' : 'var(--text-secondary)',
+                          backgroundColor: isSelected ? 'var(--text-forest)' : 'var(--bg-muted)',
+                          color: isSelected ? '#fff' : 'var(--text-olive)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',

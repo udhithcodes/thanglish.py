@@ -20,8 +20,8 @@ export default function ProtectedRoute({ children, requireAdmin = false }) {
         <div style={{
           width: '24px',
           height: '24px',
-          border: '3px solid var(--copper-subtle)',
-          borderTopColor: 'var(--copper-base)',
+          border: '3px solid var(--bg-sage)',
+          borderTopColor: 'var(--text-forest)',
           borderRadius: '50%',
           animation: 'spin 0.8s linear infinite'
         }} />

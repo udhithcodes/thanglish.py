@@ -8,19 +8,33 @@ import {
 } from 'lucide-react';
 
 export default function HomePage() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
   const { setLanguage } = useLanguage();
 
   return (
     <div className="animate-fade-in" style={{ paddingBottom: '4rem' }}>
-      {/* Hero Section */}
+
+      {/* ══ Hero Section ══ */}
       <section style={{
-        padding: '4.5rem 0 3.5rem',
+        padding: '5rem 0 4rem',
         textAlign: 'center',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
       }}>
-        <div className="app-container" style={{ maxWidth: '850px' }}>
+        {/* Soft radial sage glow */}
+        <div style={{
+          position: 'absolute',
+          top: '-80px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '600px',
+          height: '400px',
+          background: 'radial-gradient(ellipse, rgba(220,232,213,0.55) 0%, transparent 70%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }} />
+
+        <div className="app-container" style={{ maxWidth: '820px', position: 'relative', zIndex: 1 }}>
           {/* Badge */}
           <div style={{
             display: 'inline-flex',
@@ -28,55 +42,63 @@ export default function HomePage() {
             gap: '0.5rem',
             padding: '0.4rem 1rem',
             borderRadius: 'var(--radius-full)',
-            backgroundColor: 'var(--yellow-subtle)',
-            color: 'var(--badge-text)',
-            border: '1px solid var(--yellow-border)',
+            backgroundColor: 'var(--bg-sage)',
+            color: 'var(--text-forest)',
+            border: '1px solid var(--border-olive)',
             fontWeight: 700,
-            fontSize: '0.85rem',
-            marginBottom: '1.5rem'
+            fontSize: '0.84rem',
+            marginBottom: '1.75rem',
           }}>
-            <Sparkles size={16} />
+            <Sparkles size={15} />
             <span>Overcoming the Programming Language Barrier</span>
           </div>
 
-          {/* Main Title */}
+          {/* Main Title — all Forest, no copper highlights */}
           <h1 style={{
-            fontSize: 'clamp(2.4rem, 5vw, 3.6rem)',
+            fontSize: 'clamp(2.3rem, 5vw, 3.5rem)',
             fontWeight: 800,
             lineHeight: 1.15,
-            color: 'var(--text-primary)',
+            color: 'var(--text-forest)',
             letterSpacing: '-0.03em',
-            marginBottom: '1.25rem'
+            marginBottom: '1.35rem',
           }}>
             Learn Python. Understand English.{' '}
-            <span style={{ color: 'var(--copper-base)' }}>Think in Your Language.</span>
+            <span style={{
+              display: 'inline-block',
+              backgroundColor: 'var(--bg-sage)',
+              color: 'var(--text-forest)',
+              borderRadius: 'var(--radius-md)',
+              padding: '0 0.35em',
+            }}>
+              Think in Your Language.
+            </span>
           </h1>
 
           {/* Subtitle */}
           <p style={{
-            fontSize: '1.18rem',
+            fontSize: '1.12rem',
             color: 'var(--text-secondary)',
-            lineHeight: 1.6,
-            marginBottom: '2.5rem',
-            maxWidth: '720px',
-            margin: '0 auto 2.5rem'
+            lineHeight: 1.65,
+            marginBottom: '2.75rem',
+            maxWidth: '680px',
+            margin: '0 auto 2.75rem',
           }}>
             Many students know Python concepts but struggle with English questions.
             <strong> thanglish.py</strong> bridges this gap with natural Tanglish and Tamil translations,
-            interactive quizzes, and instant feedback.
+            interactive quizzes, and instant feedback — from Beginner to Advanced.
           </p>
 
-          {/* Call to Actions */}
+          {/* CTAs */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '1rem',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
           }}>
             {isAuthenticated ? (
               <Link to="/dashboard" className="btn btn-primary btn-lg">
-                <span>Go to Student Dashboard</span>
+                <span>Go to My Dashboard</span>
                 <ArrowRight size={18} />
               </Link>
             ) : (
@@ -97,14 +119,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* The 3-Language Feature Showcase Card */}
-      <section className="app-container" style={{ margin: '1rem auto 4rem', maxWidth: '1000px' }}>
+      {/* ══ 3-Language Showcase Card ══ */}
+      <section className="app-container" style={{ margin: '0 auto 4.5rem', maxWidth: '980px' }}>
         <div className="card" style={{
-          backgroundColor: 'var(--bg-elevated)',
-          border: '2px solid var(--copper-border)',
+          backgroundColor: 'var(--surface-white)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: 'var(--radius-xl)',
           padding: '2.5rem',
-          boxShadow: 'var(--shadow-lg)'
+          boxShadow: 'var(--shadow-md)',
         }}>
           <div style={{
             display: 'flex',
@@ -112,78 +134,79 @@ export default function HomePage() {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '1rem',
-            borderBottom: '1px solid var(--border-color)',
+            borderBottom: '1px solid var(--border-subtle)',
             paddingBottom: '1.25rem',
-            marginBottom: '1.75rem'
+            marginBottom: '1.75rem',
           }}>
             <div>
-              <span className="badge badge-copper" style={{ marginBottom: '0.4rem' }}>Core Innovation</span>
-              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+              <span className="badge" style={{ marginBottom: '0.5rem' }}>Core Innovation</span>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-forest)' }}>
                 One Question. Three Seamless Perspectives.
               </h3>
             </div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <span className="badge" style={{ backgroundColor: 'var(--bg-muted)' }}>English</span>
-              <span className="badge" style={{ backgroundColor: 'var(--copper-subtle)', color: 'var(--copper-base)' }}>Tanglish</span>
-              <span className="badge" style={{ backgroundColor: 'var(--yellow-subtle)', color: 'var(--badge-text)' }}>தமிழ்</span>
+              <span className="badge">English</span>
+              <span className="badge">Tanglish</span>
+              <span className="badge">தமிழ்</span>
             </div>
           </div>
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1.25rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(275px, 1fr))',
+            gap: '1.25rem',
           }}>
             {/* English Card */}
             <div style={{
               backgroundColor: 'var(--bg-muted)',
               borderRadius: 'var(--radius-lg)',
               padding: '1.5rem',
-              borderTop: '4px solid var(--text-muted)'
+              borderTop: '4px solid var(--text-olive)',
             }}>
-              <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-olive)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 1. Read in English
               </div>
-              <p style={{ fontSize: '1rem', color: 'var(--text-primary)', lineHeight: 1.6, fontWeight: 500 }}>
+              <p style={{ fontSize: '1rem', color: 'var(--text-forest)', lineHeight: 1.6, fontWeight: 500 }}>
                 "Write a Python program to find the largest number in a list."
               </p>
-              <div style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              <div style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--text-olive)' }}>
                 Read the technical question as presented in exams and interviews.
               </div>
             </div>
 
             {/* Tanglish Card */}
             <div style={{
-              backgroundColor: 'var(--copper-subtle)',
+              backgroundColor: 'var(--bg-sage)',
               borderRadius: 'var(--radius-lg)',
               padding: '1.5rem',
-              borderTop: '4px solid var(--copper-base)'
+              borderTop: '4px solid var(--text-forest)',
             }}>
-              <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--copper-base)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-forest)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 2. Understand in Tanglish
               </div>
-              <p style={{ fontSize: '1.02rem', color: 'var(--text-primary)', lineHeight: 1.6, fontWeight: 600 }}>
+              <p style={{ fontSize: '1rem', color: 'var(--text-forest)', lineHeight: 1.6, fontWeight: 600 }}>
                 "Oru list-la irukkura numbers-la, romba periya number edhu-nu kandupidikka Python program ezhudhunga."
               </p>
-              <div style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--copper-hover)' }}>
+              <div style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                 Conversational Tamil in English letters removes comprehension anxiety instantly.
               </div>
             </div>
 
             {/* Tamil Card */}
             <div style={{
-              backgroundColor: 'var(--yellow-subtle)',
+              backgroundColor: 'var(--surface-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-lg)',
               padding: '1.5rem',
-              borderTop: '4px solid var(--yellow-dark)'
+              borderTop: '4px solid var(--text-olive)',
             }}>
-              <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--yellow-dark)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-olive)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 3. Validate in Tamil Script
               </div>
-              <p className="font-tamil" style={{ fontSize: '1.05rem', color: 'var(--text-primary)', lineHeight: 1.7, fontWeight: 600 }}>
+              <p className="font-tamil" style={{ fontSize: '1.05rem', color: 'var(--text-forest)', lineHeight: 1.75, fontWeight: 600 }}>
                 "ஒரு பட்டியலில் உள்ள எண்களில் மிகப்பெரிய எண்ணைக் கண்டறிய Python நிரலை எழுதுங்கள்."
               </p>
-              <div style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+              <div style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--text-olive)' }}>
                 Reinforce understanding in pure Tamil script.
               </div>
             </div>
@@ -191,10 +214,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Key Advantages Grid */}
-      <section className="app-container" style={{ margin: '3rem auto 4rem' }}>
+      {/* ══ Feature Grid ══ */}
+      <section className="app-container" style={{ margin: '0 auto 4.5rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-forest)', marginBottom: '0.75rem' }}>
             Built Specifically for Python Learners
           </h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto' }}>
@@ -204,121 +227,81 @@ export default function HomePage() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          gap: '1.5rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(255px, 1fr))',
+          gap: '1.5rem',
         }}>
-          <div className="card card-hover">
-            <div style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '12px',
-              backgroundColor: 'var(--copper-subtle)',
-              color: 'var(--copper-base)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '1rem'
-            }}>
-              <Award size={22} />
+          {[
+            { icon: Award, title: '3 Structured Levels', desc: 'Beginner, Intermediate, and Advanced tiers covering syntax, comprehensions, algorithms, and OOP.' },
+            { icon: SplitSquareVertical, title: 'Side-by-Side Comparison', desc: 'Compare English and Tanglish side by side to learn key technical phrases while programming.' },
+            { icon: Terminal, title: 'Isolated Code Sandbox', desc: 'Write Python code and test it against test cases safely with sub-second execution in a secure sandbox.' },
+            { icon: CheckCircle2, title: 'Smart Progress Tracking', desc: 'Review mistakes, save bookmarks, track accuracy per topic, and receive custom study recommendations.' },
+          ].map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="card card-hover" style={{ backgroundColor: 'var(--surface-white)' }}>
+              <div style={{
+                width: '44px',
+                height: '44px',
+                borderRadius: '12px',
+                backgroundColor: 'var(--bg-sage)',
+                color: 'var(--text-forest)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '1rem',
+              }}>
+                <Icon size={22} />
+              </div>
+              <h4 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-forest)' }}>
+                {title}
+              </h4>
+              <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
+                {desc}
+              </p>
             </div>
-            <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-              3 Structured Levels
-            </h4>
-            <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              Beginner, Intermediate, and Advanced tiers covering syntax, comprehensions, algorithms, and OOP.
-            </p>
-          </div>
-
-          <div className="card card-hover">
-            <div style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '12px',
-              backgroundColor: 'var(--yellow-subtle)',
-              color: 'var(--yellow-dark)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '1rem'
-            }}>
-              <SplitSquareVertical size={22} />
-            </div>
-            <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-              Side-by-Side Comparison
-            </h4>
-            <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              Compare English and Tanglish side by side to learn key technical English phrases while programming.
-            </p>
-          </div>
-
-          <div className="card card-hover">
-            <div style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '12px',
-              backgroundColor: 'var(--copper-subtle)',
-              color: 'var(--copper-base)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '1rem'
-            }}>
-              <Terminal size={22} />
-            </div>
-            <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-              Isolated Code Sandbox
-            </h4>
-            <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              Write Python code and test it against test cases safely with sub-second execution in an isolated sandbox.
-            </p>
-          </div>
-
-          <div className="card card-hover">
-            <div style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '12px',
-              backgroundColor: 'var(--success-subtle)',
-              color: 'var(--success)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '1rem'
-            }}>
-              <CheckCircle2 size={22} />
-            </div>
-            <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-              Smart Progress Tracking
-            </h4>
-            <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              Review mistakes, save bookmarks, track accuracy per topic, and receive custom study recommendations.
-            </p>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Banner CTA */}
-      <section className="app-container" style={{ margin: '2rem auto' }}>
+      {/* ══ CTA Banner — Forest background ══ */}
+      <section className="app-container" style={{ margin: '0 auto 2rem' }}>
         <div style={{
-          backgroundColor: 'var(--copper-base)',
+          backgroundColor: 'var(--text-forest)',
           color: '#ffffff',
           borderRadius: 'var(--radius-xl)',
-          padding: '3rem 2rem',
+          padding: '3.5rem 2rem',
           textAlign: 'center',
-          boxShadow: '0 12px 36px rgba(203, 118, 74, 0.35)'
+          boxShadow: '0 12px 40px rgba(40, 56, 47, 0.28)',
+          position: 'relative',
+          overflow: 'hidden',
         }}>
-          <h2 style={{ fontSize: '2.2rem', fontWeight: 800, marginBottom: '0.75rem', color: '#ffffff' }}>
+          {/* Sage blob accent */}
+          <div style={{
+            position: 'absolute',
+            top: '-60px',
+            right: '-60px',
+            width: '240px',
+            height: '240px',
+            background: 'radial-gradient(circle, rgba(220,232,213,0.15) 0%, transparent 65%)',
+            pointerEvents: 'none',
+          }} />
+          <h2 style={{ fontSize: '2.1rem', fontWeight: 800, marginBottom: '0.75rem', color: '#ffffff' }}>
             Ready to Master Python on Your Terms?
           </h2>
-          <p style={{ fontSize: '1.1rem', opacity: 0.95, maxWidth: '600px', margin: '0 auto 2rem' }}>
+          <p style={{ fontSize: '1.1rem', opacity: 0.85, maxWidth: '580px', margin: '0 auto 2rem' }}>
             Join students learning Python without letting English comprehension hold them back.
           </p>
           <Link
-            to={isAuthenticated ? "/practice" : "/signup"}
-            className="btn btn-accent btn-lg"
-            style={{ fontWeight: 800, fontSize: '1.05rem', padding: '0.9rem 2.2rem' }}
+            to={isAuthenticated ? '/practice' : '/signup'}
+            className="btn btn-lg"
+            style={{
+              backgroundColor: 'var(--bg-sage)',
+              color: 'var(--text-forest)',
+              border: '1px solid transparent',
+              fontWeight: 800,
+              fontSize: '1.05rem',
+              padding: '0.9rem 2.4rem',
+            }}
           >
-            {isAuthenticated ? "Continue Practice" : "Create Your Free Account"}
+            {isAuthenticated ? 'Continue Practice' : 'Create Your Free Account'}
           </Link>
         </div>
       </section>

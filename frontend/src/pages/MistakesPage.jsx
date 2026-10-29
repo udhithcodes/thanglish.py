@@ -36,7 +36,7 @@ export default function MistakesPage() {
         confetti({
           particleCount: 70,
           spread: 60,
-          colors: ['#CB764A', '#F5E7A1', '#34A853']
+          colors: ['#28382F', '#DCE8D5', '#34A853']
         });
       }
     } catch (err) {
@@ -76,8 +76,8 @@ export default function MistakesPage() {
             <div style={{
               width: '32px',
               height: '32px',
-              border: '3px solid var(--copper-subtle)',
-              borderTopColor: 'var(--copper-base)',
+              border: '3px solid var(--bg-sage)',
+              borderTopColor: 'var(--text-forest)',
               borderRadius: '50%',
               margin: '0 auto 1rem',
               animation: 'spin 0.8s linear infinite'
