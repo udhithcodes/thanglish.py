@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { useCodePlayground } from '../context/CodePlaygroundContext';
 import {
   Bookmark, CheckCircle2, XCircle, Lightbulb, SplitSquareVertical,
-  ArrowRight, RotateCcw, Play, Check, AlertCircle, Award
+  ArrowRight, RotateCcw, Terminal, Check
 } from 'lucide-react';
 
 export default function QuestionCard({
@@ -13,10 +14,10 @@ export default function QuestionCard({
   showNextButton = true,
   mode = 'learning', // 'learning' or 'test'
   submittedAnswer = null,
-  isCorrect = null,
   feedback = null,
 }) {
   const { language, setLanguage, compareMode, toggleCompareMode, languages } = useLanguage();
+  const { openPlayground } = useCodePlayground();
   const [selectedOption, setSelectedOption] = useState(submittedAnswer?.selectedOption || '');
   const [codeAnswer, setCodeAnswer] = useState(submittedAnswer?.codeAnswer || '');
   const [showHint, setShowHint] = useState(false);
@@ -32,7 +33,6 @@ export default function QuestionCard({
     if (tr && tr.translated_question) {
       return tr.translated_question;
     }
-    // Fallback message with original english text as specified
     return question.english_question;
   };
 
@@ -67,6 +67,17 @@ export default function QuestionCard({
     }
   };
 
+  const handleOpenEditor = () => {
+    const sampleCode = question.code_snippet 
+      ? question.code_snippet 
+      : `# Test Python code for: ${question.title}\n# Write your code or experiment below\n`;
+    openPlayground({
+      code: sampleCode,
+      title: question.title,
+      context: question.topic_name || 'Practice Question'
+    });
+  };
+
   return (
     <div className="card" style={{
       position: 'relative',
@@ -77,33 +88,32 @@ export default function QuestionCard({
       boxShadow: 'var(--shadow-md)',
       transition: 'all var(--transition-normal)'
     }}>
-      {/* Header: Level Badge, Topic, Points, Bookmark, Compare Toggle, Language Switcher */}
+      {/* Header: Topic, Question ID/Type, Bookmark, Compare Toggle, Language Switcher */}
       <div style={{
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '1rem',
+        gap: '0.85rem',
         borderBottom: '1px solid var(--border-color)',
         paddingBottom: '1rem',
         marginBottom: '1.5rem'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-          <span className="badge badge-accent">
-            {question.level}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+          <span className="badge badge-accent" style={{ fontWeight: 700 }}>
+            Question #{question.id}
           </span>
           {question.topic_name && (
-            <span className="badge" style={{ backgroundColor: 'var(--bg-muted)' }}>
+            <span className="badge" style={{ backgroundColor: 'var(--bg-muted)', color: 'var(--text-forest)' }}>
               {question.topic_name}
             </span>
           )}
-          <span className="badge">
-            <Award size={13} />
-            <span>{question.points} Points</span>
+          <span className="badge" style={{ backgroundColor: 'var(--bg-muted)', textTransform: 'capitalize' }}>
+            {question.question_type ? question.question_type.replace('_', ' ') : 'Concept'}
           </span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
           {/* Comparison Mode Toggle */}
           <button
             onClick={toggleCompareMode}
@@ -135,14 +145,14 @@ export default function QuestionCard({
             className="btn btn-secondary btn-sm"
             style={{
               borderRadius: 'var(--radius-full)',
-              width: '36px',
-              height: '36px',
+              width: '34px',
+              height: '34px',
               padding: 0,
               color: isBookmarked ? 'var(--text-forest)' : 'var(--text-olive)'
             }}
             title={isBookmarked ? 'Remove Bookmark' : 'Bookmark Question'}
           >
-            <Bookmark size={17} fill={isBookmarked ? 'currentColor' : 'none'} />
+            <Bookmark size={16} fill={isBookmarked ? 'currentColor' : 'none'} />
           </button>
         </div>
       </div>
@@ -166,34 +176,37 @@ export default function QuestionCard({
           gap: '1rem',
           marginBottom: '1.5rem'
         }}>
-          {/* English Panel */}
+          {/* Left Card: ENGLISH (ORIGINAL) */}
           <div style={{
-            backgroundColor: 'var(--bg-muted)',
+            backgroundColor: '#F2F4EE',
             padding: '1.25rem',
             borderRadius: 'var(--radius-lg)',
-            borderLeft: '4px solid var(--text-muted)'
+            border: '1px solid var(--border-subtle)',
           }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
-              English (Original)
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-olive)', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+              ENGLISH (ORIGINAL)
             </div>
-            <p style={{ fontSize: '1rem', color: 'var(--text-primary)', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '0.98rem', color: 'var(--text-primary)', lineHeight: 1.6 }}>
               {englishQuestionText}
             </p>
           </div>
 
-          {/* Translated Panel (Tanglish or Tamil) */}
+          {/* Right Card: TANGLISH or TAMIL */}
           <div style={{
             backgroundColor: 'var(--bg-sage)',
             padding: '1.25rem',
             borderRadius: 'var(--radius-lg)',
-            borderLeft: '4px solid var(--text-forest)'
+            borderLeft: '4px solid var(--text-forest)',
+            borderTop: '1px solid var(--border-olive)',
+            borderRight: '1px solid var(--border-olive)',
+            borderBottom: '1px solid var(--border-olive)',
           }}>
             <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-forest)', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
-              {language === 'tanglish' ? 'Tanglish (Spoken Tamil in English)' : 'தமிழ் (Tamil Script)'}
+              {language === 'tanglish' ? 'TANGLISH (SPOKEN TAMIL IN ENGLISH)' : 'TAMIL (தமிழ்)'}
             </div>
             <p className={language === 'ta' ? 'font-tamil' : ''} style={{
-              fontSize: '1.05rem',
-              color: 'var(--text-primary)',
+              fontSize: '1.02rem',
+              color: 'var(--text-forest)',
               lineHeight: 1.7,
               fontWeight: 500
             }}>
@@ -207,10 +220,10 @@ export default function QuestionCard({
           padding: '1.25rem',
           borderRadius: 'var(--radius-lg)',
           marginBottom: '1.5rem',
-          borderLeft: '4px solid var(--text-olive)'
+          borderLeft: '4px solid var(--text-forest)'
         }}>
           <p className={language === 'ta' ? 'font-tamil' : ''} style={{
-            fontSize: '1.1rem',
+            fontSize: '1.08rem',
             color: 'var(--text-primary)',
             lineHeight: 1.7
           }}>
@@ -219,12 +232,56 @@ export default function QuestionCard({
         </div>
       )}
 
-      {/* Code Snippet if present */}
+      {/* Code Snippet with "🐍 Try in Code Editor" Button */}
       {question.code_snippet && (
-        <div style={{ marginBottom: '1.5rem' }}>
-          <div className="code-block">
-            <pre><code>{question.code_snippet}</code></pre>
+        <div style={{
+          position: 'relative',
+          marginBottom: '1.5rem',
+          borderRadius: 'var(--radius-lg)',
+          overflow: 'hidden',
+          backgroundColor: '#18241E',
+          border: '1px solid rgba(120, 145, 122, 0.4)'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0.45rem 1rem',
+            backgroundColor: '#131D18',
+            borderBottom: '1px solid rgba(220, 232, 213, 0.1)',
+            fontSize: '0.75rem',
+            color: '#78917A',
+            fontFamily: 'var(--font-mono)'
+          }}>
+            <span>Python Snippet</span>
+            <button
+              onClick={handleOpenEditor}
+              className="btn btn-sm"
+              style={{
+                backgroundColor: 'rgba(220, 232, 213, 0.15)',
+                color: '#DCE8D5',
+                padding: '0.2rem 0.55rem',
+                fontSize: '0.74rem',
+                borderRadius: '4px',
+                gap: '0.3rem'
+              }}
+              title="Open code in slide-over playground"
+            >
+              <Terminal size={12} />
+              <span>🐍 Try in Code Editor</span>
+            </button>
           </div>
+          <pre style={{
+            margin: 0,
+            padding: '1rem 1.25rem',
+            color: '#DCE8D5',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.92rem',
+            lineHeight: 1.55,
+            overflowX: 'auto'
+          }}>
+            <code>{question.code_snippet}</code>
+          </pre>
         </div>
       )}
 
@@ -289,34 +346,51 @@ export default function QuestionCard({
         </div>
       )}
 
-      {/* Hints Section */}
-      {question.hints && (
-        <div style={{ marginBottom: '1.25rem' }}>
+      {/* Quick In-Page Code Editor Doubts Button */}
+      <div style={{ marginBottom: '1.25rem', display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+        <button
+          onClick={handleOpenEditor}
+          className="btn btn-secondary btn-sm"
+          style={{
+            borderRadius: 'var(--radius-full)',
+            border: '1px solid var(--border-olive)',
+            fontSize: '0.82rem',
+            padding: '0.35rem 0.85rem'
+          }}
+          title="Open slide-over code editor on this same page"
+        >
+          <Terminal size={14} />
+          <span>🐍 Open Python Editor to Test / Clear Doubts</span>
+        </button>
+
+        {/* Hints Toggle */}
+        {question.hints && (
           <button
             onClick={() => setShowHint(prev => !prev)}
             className="btn btn-outline btn-sm"
-            style={{ borderRadius: 'var(--radius-full)' }}
+            style={{ borderRadius: 'var(--radius-full)', fontSize: '0.82rem', padding: '0.35rem 0.85rem' }}
           >
-            <Lightbulb size={15} style={{ color: 'var(--text-olive)' }} />
+            <Lightbulb size={14} style={{ color: 'var(--text-olive)' }} />
             <span>{showHint ? 'Hide Hint' : 'Need a Hint?'}</span>
           </button>
-          {showHint && (
-            <div className="animate-fade-in" style={{
-              marginTop: '0.5rem',
-              padding: '0.85rem 1.25rem',
-              backgroundColor: 'var(--bg-sage)',
-              border: '1px solid var(--border-olive)',
-              borderRadius: 'var(--radius-md)',
-              fontSize: '0.9rem',
-              color: 'var(--text-primary)'
-            }}>
-              💡 <strong>Hint:</strong> {question.hints}
-            </div>
-          )}
+        )}
+      </div>
+
+      {showHint && question.hints && (
+        <div className="animate-fade-in" style={{
+          marginBottom: '1.25rem',
+          padding: '0.85rem 1.25rem',
+          backgroundColor: 'var(--bg-sage)',
+          border: '1px solid var(--border-olive)',
+          borderRadius: 'var(--radius-md)',
+          fontSize: '0.88rem',
+          color: 'var(--text-forest)'
+        }}>
+          💡 <strong>Hint:</strong> {question.hints}
         </div>
       )}
 
-      {/* Feedback & Explanation Card */}
+      {/* Feedback & Explanation Card (No Gamification Points) */}
       {feedback && (
         <div className="animate-fade-in" style={{
           padding: '1.25rem',
@@ -330,7 +404,7 @@ export default function QuestionCard({
               <>
                 <CheckCircle2 size={22} style={{ color: 'var(--success)' }} />
                 <span style={{ fontWeight: 800, color: 'var(--success)', fontSize: '1.05rem' }}>
-                  Correct! +{feedback.points_earned} Points
+                  Correct Answer! ✓
                 </span>
               </>
             ) : (
@@ -368,7 +442,7 @@ export default function QuestionCard({
               }}
               className="btn btn-outline btn-sm"
             >
-              <RotateCcw size={15} />
+              <RotateCcw size={14} />
               <span>Retry Question</span>
             </button>
           )}

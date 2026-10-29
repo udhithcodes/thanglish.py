@@ -46,13 +46,13 @@ export default function Footer() {
           {/* Quick Learning Links */}
           <div>
             <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-forest)', marginBottom: '0.75rem' }}>
-              Learning Paths
+              Curriculum Modules
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.88rem' }}>
-              <Link to="/levels" style={{ color: 'var(--text-secondary)' }}>Beginner Python</Link>
-              <Link to="/levels" style={{ color: 'var(--text-secondary)' }}>Intermediate Challenges</Link>
-              <Link to="/levels" style={{ color: 'var(--text-secondary)' }}>Advanced OOP & Algorithms</Link>
-              <Link to="/practice" style={{ color: 'var(--text-secondary)' }}>Interactive Practice</Link>
+              <Link to="/learn" style={{ color: 'var(--text-secondary)' }}>Python Foundations</Link>
+              <Link to="/learn" style={{ color: 'var(--text-secondary)' }}>Data Structures & OOP</Link>
+              <Link to="/learn" style={{ color: 'var(--text-secondary)' }}>APIs, SQL & Databases</Link>
+              <Link to="/practice" style={{ color: 'var(--text-secondary)' }}>1,000+ Question Bank</Link>
             </div>
           </div>
 

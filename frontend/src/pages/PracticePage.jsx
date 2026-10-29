@@ -8,12 +8,13 @@ import {
   HelpCircle, ChevronLeft, ChevronRight, BookOpen, AlertCircle
 } from 'lucide-react';
 
+import { useCodePlayground } from '../context/CodePlaygroundContext';
+
 export default function PracticePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialLevel = searchParams.get('level') || '';
   const initialTopic = searchParams.get('topic') || '';
+  const { openPlayground } = useCodePlayground();
 
-  const [level, setLevel] = useState(initialLevel);
   const [selectedTopicId, setSelectedTopicId] = useState(initialTopic);
   const [topics, setTopics] = useState([]);
   const [questions, setQuestions] = useState([]);
@@ -22,25 +23,18 @@ export default function PracticePage() {
   const [feedback, setFeedback] = useState(null);
   const [error, setError] = useState('');
 
-  // Sandbox state
-  const [sandboxOpen, setSandboxOpen] = useState(false);
-  const [sandboxCode, setSandboxCode] = useState('x = [1, 2, 3, 4, 5]\nprint("Sum is:", sum(x))\nprint("Squares:", [n**2 for n in x])');
-  const [sandboxInput, setSandboxInput] = useState('');
-  const [sandboxOutput, setSandboxOutput] = useState('');
-  const [sandboxRunning, setSandboxRunning] = useState(false);
-
   // Load Topics
   useEffect(() => {
     async function loadTopics() {
       try {
-        const data = await questionService.getTopics(level || null);
+        const data = await questionService.getTopics();
         setTopics(data);
       } catch (err) {
         console.error('Failed to load topics', err);
       }
     }
     loadTopics();
-  }, [level]);
+  }, []);
 
   // Load Questions
   useEffect(() => {
@@ -49,8 +43,7 @@ export default function PracticePage() {
       setError('');
       setFeedback(null);
       try {
-        const params = {};
-        if (level) params.level = level;
+        const params = { limit: 100 };
         if (selectedTopicId) params.topicId = selectedTopicId;
         const data = await questionService.getQuestions(params);
         setQuestions(data);
@@ -62,7 +55,7 @@ export default function PracticePage() {
       }
     }
     loadQuestions();
-  }, [level, selectedTopicId]);
+  }, [selectedTopicId]);
 
   const currentQuestion = questions[currentIndex];
 
@@ -152,20 +145,24 @@ export default function PracticePage() {
             </p>
           </div>
 
-          {/* Sandbox Toggle CTA */}
+          {/* Code Playground CTA */}
           <button
-            onClick={() => setSandboxOpen(prev => !prev)}
-            className={`btn ${sandboxOpen ? 'btn-primary' : 'btn-outline'}`}
-            style={{ borderRadius: 'var(--radius-full)' }}
+            onClick={() => openPlayground({
+              code: currentQuestion?.code_snippet || '# Practice Python here\n',
+              title: currentQuestion?.title || 'Practice Arena Sandbox',
+              context: currentQuestion?.topic_name || 'Practice Arena'
+            })}
+            className="btn btn-secondary"
+            style={{ borderRadius: 'var(--radius-full)', border: '1px solid var(--border-olive)', gap: '0.45rem' }}
           >
-            <Terminal size={17} />
-            <span>{sandboxOpen ? 'Hide Python Sandbox' : 'Open Python Sandbox'}</span>
+            <Terminal size={16} />
+            <span>🐍 Open Python Code Editor</span>
           </button>
         </div>
 
         {/* Filter Controls Bar */}
         <div className="card" style={{
-          backgroundColor: 'var(--bg-elevated)',
+          backgroundColor: 'var(--surface-white)',
           padding: '1rem 1.25rem',
           borderRadius: 'var(--radius-lg)',
           marginBottom: '2rem',
@@ -173,28 +170,12 @@ export default function PracticePage() {
           flexWrap: 'wrap',
           alignItems: 'center',
           gap: '1rem',
-          border: '1px solid var(--border-color)'
+          border: '1px solid var(--border-color)',
+          boxShadow: 'var(--shadow-sm)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-olive)', fontSize: '0.88rem' }}>
             <Filter size={16} />
-            <strong>Filters:</strong>
-          </div>
-
-          {/* Level Filter */}
-          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-            {['', 'Beginner', 'Intermediate', 'Advanced'].map((lvl) => (
-              <button
-                key={lvl}
-                onClick={() => {
-                  setLevel(lvl);
-                  setSelectedTopicId('');
-                }}
-                className={`btn btn-sm ${level === lvl ? 'btn-primary' : 'btn-secondary'}`}
-                style={{ fontSize: '0.82rem', padding: '0.35rem 0.8rem' }}
-              >
-                {lvl || 'All Levels'}
-              </button>
-            ))}
+            <strong>Topic Filter:</strong>
           </div>
 
           {/* Topic Dropdown */}

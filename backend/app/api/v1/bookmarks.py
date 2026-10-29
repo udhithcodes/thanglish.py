@@ -38,11 +38,3 @@ def remove_question_bookmark(
     """Removes a bookmark for the student."""
     toggle_bookmark(db, current_user.id, question_id)
     return {"question_id": question_id, "is_bookmarked": False}
-
-@router.get("/questions/incorrect", response_model=List[QuestionDetailResponse])
-def list_incorrect_questions(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Retrieves questions the student answered incorrectly, for targeted practice."""
-    return get_user_incorrect_questions(db, current_user.id)

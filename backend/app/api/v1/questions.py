@@ -2,14 +2,15 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, Query, Path
 from sqlalchemy.orm import Session
 from app.db.session import get_db
-from app.api.deps import get_current_user_optional
+from app.api.deps import get_current_user_optional, get_current_user
 from app.models.user import User
 from app.schemas.question import (
     TopicResponse, QuestionDetailResponse, AnswerSubmitRequest,
     AnswerFeedbackResponse, CodeRunRequest
 )
 from app.services.question_service import (
-    get_all_topics, get_questions_list, get_question_by_id, evaluate_answer
+    get_all_topics, get_questions_list, get_question_by_id, evaluate_answer,
+    get_user_incorrect_questions
 )
 from app.core.sandbox import execute_user_code
 
@@ -19,6 +20,14 @@ router = APIRouter(prefix="/questions", tags=["Questions"])
 def list_topics(level: Optional[str] = None, db: Session = Depends(get_db)):
     """Retrieves all topics, optionally filtered by level (Beginner, Intermediate, Advanced)."""
     return get_all_topics(db, level=level)
+
+@router.get("/incorrect", response_model=List[QuestionDetailResponse])
+def list_incorrect_questions(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Retrieves questions the student answered incorrectly, for targeted practice."""
+    return get_user_incorrect_questions(db, current_user.id)
 
 @router.get("", response_model=List[QuestionDetailResponse])
 def list_questions(

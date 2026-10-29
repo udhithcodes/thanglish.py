@@ -1,7 +1,10 @@
+import logging
 from typing import List, Optional, Dict, Any
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from fastapi import HTTPException, status
+
+logger = logging.getLogger(__name__)
 from app.models.question import Topic, Question, QuestionOption, QuestionTranslation, CodingTestCase
 from app.models.quiz import Bookmark, UserAnswer, UserProgress
 from app.models.user import User
@@ -196,26 +199,30 @@ def evaluate_answer(
 
 def update_user_topic_progress(db: Session, user_id: str, topic_id: int, level: str, is_correct: bool):
     """Updates user progress statistics for the topic."""
-    prog = db.query(UserProgress).filter(
-        UserProgress.user_id == user_id,
-        UserProgress.topic_id == topic_id
-    ).first()
+    try:
+        prog = db.query(UserProgress).filter(
+            UserProgress.user_id == user_id,
+            UserProgress.topic_id == topic_id
+        ).first()
 
-    if not prog:
-        prog = UserProgress(
-            user_id=user_id,
-            topic_id=topic_id,
-            level=level,
-            questions_attempted=1,
-            questions_correct=1 if is_correct else 0,
-            accuracy=100.0 if is_correct else 0.0
-        )
-        db.add(prog)
-    else:
-        prog.questions_attempted += 1
-        if is_correct:
-            prog.questions_correct += 1
-        prog.accuracy = round((prog.questions_correct / prog.questions_attempted) * 100.0, 1)
+        if not prog:
+            prog = UserProgress(
+                user_id=user_id,
+                topic_id=topic_id,
+                level=level,
+                questions_attempted=1,
+                questions_correct=1 if is_correct else 0,
+                accuracy=100.0 if is_correct else 0.0
+            )
+            db.add(prog)
+        else:
+            prog.questions_attempted += 1
+            if is_correct:
+                prog.questions_correct += 1
+            prog.accuracy = round((prog.questions_correct / prog.questions_attempted) * 100.0, 1)
+        db.flush()
+    except Exception as e:
+        logger.warning(f"Could not update user topic progress: {e}")
 
 def toggle_bookmark(db: Session, user_id: str, question_id: int) -> bool:
     """Toggles bookmark status. Returns True if bookmarked, False if removed."""

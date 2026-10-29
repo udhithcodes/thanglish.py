@@ -11,6 +11,8 @@
 
 html, body {
   min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
   font-family: var(--font-sans);
   background-color: var(--bg-paper);
   color: var(--text-forest);
@@ -22,6 +24,7 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 #root {
@@ -72,9 +75,10 @@ img, svg {
    ══════════════════════════════════════════════════════════════ */
 .app-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  box-sizing: border-box;
 }
 
 .main-content {

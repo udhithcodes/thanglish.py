@@ -59,6 +59,15 @@ app.include_router(bookmarks_router, prefix=settings.API_V1_STR)
 app.include_router(progress_router, prefix=settings.API_V1_STR)
 app.include_router(admin_router, prefix=settings.API_V1_STR)
 
+from app.schemas.question import CodeRunRequest
+from app.core.sandbox import execute_user_code
+
+@app.post("/api/code/run", tags=["Code Runner"])
+def run_code_endpoint(req: CodeRunRequest):
+    test_inputs = [req.input_data] if req.input_data else []
+    return execute_user_code(req.code, test_inputs=test_inputs)
+
+
 @app.get("/api/health", tags=["Health"])
 def health_check():
     return {

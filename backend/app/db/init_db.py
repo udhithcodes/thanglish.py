@@ -475,3 +475,11 @@ def init_db_data(db: Session):
 
     db.commit()
     logger.info("Successfully seeded database with topics, questions, and translations.")
+
+    # Seed 50-topic 1,000+ job-ready question curriculum
+    try:
+        from app.db.seed_curriculum import seed_full_curriculum
+        seed_full_curriculum(db)
+    except Exception as e:
+        logger.error(f"Error seeding full curriculum: {e}")
+

@@ -83,9 +83,9 @@ export default function HomePage() {
             maxWidth: '680px',
             margin: '0 auto 2.75rem',
           }}>
-            Many students know Python concepts but struggle with English questions.
-            <strong> thanglish.py</strong> bridges this gap with natural Tanglish and Tamil translations,
-            interactive quizzes, and instant feedback — from Beginner to Advanced.
+            Master Python concept-by-concept in English, Tanglish, and Tamil.
+            Read bite-sized lessons, clear doubts in the live in-page code editor, and solve
+            <strong> 1,000+ job-ready questions</strong> to prepare for software engineering careers.
           </p>
 
           {/* CTAs */}
@@ -231,10 +231,10 @@ export default function HomePage() {
           gap: '1.5rem',
         }}>
           {[
-            { icon: Award, title: '3 Structured Levels', desc: 'Beginner, Intermediate, and Advanced tiers covering syntax, comprehensions, algorithms, and OOP.' },
+            { icon: BookOpen, title: 'W3Schools-Style 50 Topics', desc: 'Step-by-step modular curriculum covering syntax, data structures, OOP, SQL, APIs, and DSA.' },
             { icon: SplitSquareVertical, title: 'Side-by-Side Comparison', desc: 'Compare English and Tanglish side by side to learn key technical phrases while programming.' },
-            { icon: Terminal, title: 'Isolated Code Sandbox', desc: 'Write Python code and test it against test cases safely with sub-second execution in a secure sandbox.' },
-            { icon: CheckCircle2, title: 'Smart Progress Tracking', desc: 'Review mistakes, save bookmarks, track accuracy per topic, and receive custom study recommendations.' },
+            { icon: Terminal, title: 'In-Page Python Playground', desc: 'Test doubts live without leaving your lesson, with smart Tanglish/Tamil error explanations.' },
+            { icon: CheckCircle2, title: '1,000+ Job-Ready Questions', desc: 'Solve verified predict-output, bug-fixing, and coding challenge questions to achieve career mastery.' },
           ].map(({ icon: Icon, title, desc }) => (
             <div key={title} className="card card-hover" style={{ backgroundColor: 'var(--surface-white)' }}>
               <div style={{
