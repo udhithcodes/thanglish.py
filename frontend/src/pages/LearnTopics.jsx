@@ -435,15 +435,15 @@ export default function LearnTopics() {
 
   return (
     <div className="animate-fade-in learn-page-container" style={{ backgroundColor: 'var(--bg-paper)' }}>
-      {/* Top Banner & W3Schools Breadcrumbs (Fixed Sub-header at height 48px) */}
+      {/* Top Banner & W3Schools Breadcrumbs (Sticky Sub-header) */}
       <div style={{
         position: 'sticky',
         top: '64px',
         zIndex: 90,
-        height: '48px',
+        minHeight: '48px',
         borderBottom: '1px solid var(--border-subtle)',
         backgroundColor: 'var(--surface-white)',
-        padding: '0 1.5rem',
+        padding: '0.5rem 1.5rem',
         display: 'flex',
         alignItems: 'center',
         boxSizing: 'border-box'
@@ -456,19 +456,19 @@ export default function LearnTopics() {
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: '0.75rem'
+          gap: '0.5rem 0.75rem'
         }}>
           {/* Breadcrumb path */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--text-olive)' }}>
-            <span style={{ fontWeight: 600 }}>Python Curriculum</span>
-            <ChevronRight size={14} />
-            <span style={{ color: 'var(--text-forest)', fontWeight: 600 }}>{currentTopic?.moduleName?.split(':')[0]}</span>
-            <ChevronRight size={14} />
-            <span style={{ color: 'var(--text-forest)', fontWeight: 700 }}>{currentTopic?.name}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--text-olive)', minWidth: 0, flexShrink: 1, overflow: 'hidden' }}>
+            <span style={{ fontWeight: 600, flexShrink: 0 }}>Python Curriculum</span>
+            <ChevronRight size={14} style={{ flexShrink: 0 }} />
+            <span style={{ color: 'var(--text-forest)', fontWeight: 600, flexShrink: 0 }}>{currentTopic?.moduleName?.split(':')[0]}</span>
+            <ChevronRight size={14} style={{ flexShrink: 0 }} />
+            <span style={{ color: 'var(--text-forest)', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{currentTopic?.name}</span>
           </div>
 
           {/* Quick Header Controls: In-Page Language Switcher + Compare Mode + Code Playground */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexShrink: 0 }}>
             {/* In-page Language Switcher */}
             <div className="lang-switcher" title="Switch Curriculum Language">
               {languages.map(l => (
@@ -634,9 +634,10 @@ export default function LearnTopics() {
             borderRadius: 'var(--radius-xl)',
             border: '1px solid var(--border-color)',
             padding: '2rem',
-            boxShadow: 'var(--shadow-sm)'
+            boxShadow: 'var(--shadow-sm)',
+            marginTop: '0.25rem'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.85rem' }}>
               <span className="badge badge-accent" style={{ fontWeight: 700 }}>
                 {currentTopic?.moduleName?.split(':')[0]}
               </span>
@@ -650,6 +651,7 @@ export default function LearnTopics() {
               fontWeight: 800,
               color: 'var(--text-forest)',
               letterSpacing: '-0.02em',
+              marginTop: '0',
               marginBottom: '1rem',
               lineHeight: 1.25
             }}>
@@ -1041,7 +1043,7 @@ export default function LearnTopics() {
           display: grid;
           grid-template-columns: 300px minmax(0, 1fr);
           gap: 1.5rem;
-          height: calc(100vh - 112px); /* Viewport height minus navbar (64px) + breadcrumb bar (48px) */
+          height: calc(100vh - 116px); /* Viewport height minus navbar (64px) + breadcrumb bar (~52px) */
           max-width: 1440px;
           margin: 0 auto;
           padding: 1.25rem 1.5rem;
