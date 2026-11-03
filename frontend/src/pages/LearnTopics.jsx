@@ -440,10 +440,10 @@ export default function LearnTopics() {
         position: 'sticky',
         top: '64px',
         zIndex: 90,
-        minHeight: '48px',
+        flexShrink: 0,
         borderBottom: '1px solid var(--border-subtle)',
         backgroundColor: 'var(--surface-white)',
-        padding: '0.5rem 1.5rem',
+        padding: '0.6rem 1.5rem',
         display: 'flex',
         alignItems: 'center',
         boxSizing: 'border-box'
@@ -1037,23 +1037,27 @@ export default function LearnTopics() {
         .learn-page-container {
           height: calc(100vh - 64px);
           overflow: hidden;
+          display: flex;
+          flex-direction: column;
         }
 
         .learn-workspace-layout {
           display: grid;
           grid-template-columns: 300px minmax(0, 1fr);
           gap: 1.5rem;
-          height: calc(100vh - 116px); /* Viewport height minus navbar (64px) + breadcrumb bar (~52px) */
+          flex: 1;
+          min-height: 0; /* Critical: allows flex child to shrink below content size */
           max-width: 1440px;
+          width: 100%;
           margin: 0 auto;
-          padding: 1.25rem 1.5rem;
-          overflow: hidden; /* Prevents the whole page from scrolling */
+          padding: 1rem 1.5rem;
+          overflow: hidden;
           box-sizing: border-box;
         }
 
         .learn-sidebar-pane {
           height: 100%;
-          overflow-y: auto; /* Allows scrolling the 50 topics list independently if needed */
+          overflow-y: auto;
           overflow-x: hidden;
           position: sticky;
           top: 0;
@@ -1068,8 +1072,9 @@ export default function LearnTopics() {
 
         .learn-content-pane {
           height: 100%;
-          overflow-y: auto; /* ONLY the right side scrolls when the user scrolls */
+          overflow-y: auto;
           overflow-x: hidden;
+          padding-top: 0.25rem;
           padding-right: 0.5rem;
           padding-bottom: 3rem;
           scroll-behavior: smooth;
@@ -1084,6 +1089,7 @@ export default function LearnTopics() {
           .learn-page-container {
             height: auto !important;
             overflow: visible !important;
+            display: block !important;
           }
           .learn-workspace-layout {
             display: flex !important;
@@ -1103,6 +1109,7 @@ export default function LearnTopics() {
             height: auto !important;
             overflow: visible !important;
             padding-right: 0 !important;
+            padding-top: 0 !important;
             padding-bottom: 2rem !important;
           }
         }
