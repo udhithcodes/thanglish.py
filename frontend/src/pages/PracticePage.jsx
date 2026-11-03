@@ -23,6 +23,13 @@ export default function PracticePage() {
   const [feedback, setFeedback] = useState(null);
   const [error, setError] = useState('');
 
+  // Embedded Sandbox State
+  const [sandboxOpen, setSandboxOpen] = useState(false);
+  const [sandboxCode, setSandboxCode] = useState('# Write or paste Python code here\nprint("Hello from Python Practice Arena!")\n');
+  const [sandboxInput, setSandboxInput] = useState('');
+  const [sandboxOutput, setSandboxOutput] = useState('');
+  const [sandboxRunning, setSandboxRunning] = useState(false);
+
   // Load Topics
   useEffect(() => {
     async function loadTopics() {
@@ -146,18 +153,28 @@ export default function PracticePage() {
           </div>
 
           {/* Code Playground CTA */}
-          <button
-            onClick={() => openPlayground({
-              code: currentQuestion?.code_snippet || '# Practice Python here\n',
-              title: currentQuestion?.title || 'Practice Arena Sandbox',
-              context: currentQuestion?.topic_name || 'Practice Arena'
-            })}
-            className="btn btn-secondary"
-            style={{ borderRadius: 'var(--radius-full)', border: '1px solid var(--border-olive)', gap: '0.45rem' }}
-          >
-            <Terminal size={16} />
-            <span>🐍 Open Python Code Editor</span>
-          </button>
+          <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <button
+              onClick={() => setSandboxOpen(prev => !prev)}
+              className="btn btn-secondary"
+              style={{ borderRadius: 'var(--radius-full)', border: '1px solid var(--border-olive)', gap: '0.45rem' }}
+            >
+              <Terminal size={16} />
+              <span>{sandboxOpen ? 'Hide Quick Sandbox' : '⚡ Quick Sandbox'}</span>
+            </button>
+            <button
+              onClick={() => openPlayground({
+                code: currentQuestion?.code_snippet || '# Practice Python here\n',
+                title: currentQuestion?.title || 'Practice Arena Sandbox',
+                context: currentQuestion?.topic_name || 'Practice Arena'
+              })}
+              className="btn btn-primary"
+              style={{ borderRadius: 'var(--radius-full)', gap: '0.45rem' }}
+            >
+              <Terminal size={16} />
+              <span>🐍 Open Python Code Editor</span>
+            </button>
+          </div>
         </div>
 
         {/* Filter Controls Bar */}
@@ -340,7 +357,6 @@ export default function PracticePage() {
             </p>
             <button
               onClick={() => {
-                setLevel('');
                 setSelectedTopicId('');
               }}
               className="btn btn-primary"

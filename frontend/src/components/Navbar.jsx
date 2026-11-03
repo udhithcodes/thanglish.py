@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useLanguage } from '../context/LanguageContext';
 import { useCodePlayground } from '../context/CodePlaygroundContext';
 import {
   User as UserIcon, LogOut, Bookmark, BookOpen,
-  LayoutDashboard, Shield, CheckCircle, ChevronDown, Sparkles,
+  LayoutDashboard, Shield, CheckCircle, ChevronDown,
   Terminal, Menu, X, Award
 } from 'lucide-react';
 
 export default function Navbar() {
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
-  const { language, setLanguage, languages } = useLanguage();
   const { togglePlayground } = useCodePlayground();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -48,16 +46,19 @@ export default function Navbar() {
       top: 0,
       zIndex: 100,
       width: '100%',
+      height: '64px',
       backgroundColor: 'var(--nav-bg)',
       backdropFilter: 'blur(14px)',
       borderBottom: '1px solid var(--border-subtle)',
       boxSizing: 'border-box',
+      display: 'flex',
+      alignItems: 'center',
     }}>
       <div style={{
         width: '100%',
         maxWidth: '1440px',
         margin: '0 auto',
-        padding: '0.65rem 1.5rem',
+        padding: '0 1.5rem',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -127,11 +128,6 @@ export default function Navbar() {
               <span>Learn Topics</span>
             </Link>
 
-            <Link to="/practice" style={navLinkStyle('/practice')}>
-              <Sparkles size={14} />
-              <span>Practice</span>
-            </Link>
-
             {isAuthenticated && (
               <>
                 <Link to="/bookmarks" style={navLinkStyle('/bookmarks')}>
@@ -171,22 +167,8 @@ export default function Navbar() {
             title="Open Interactive Python Code Playground"
           >
             <Terminal size={14} />
-            <span>&lt;_ Code Editor</span>
+            <span>Code Editor</span>
           </button>
-
-          {/* Global Language Switcher Pill */}
-          <div className="lang-switcher" title="Switch Interface & Question Language">
-            {languages.map(l => (
-              <button
-                key={l.id}
-                onClick={() => setLanguage(l.id)}
-                className={`lang-btn ${language === l.id ? 'active' : ''}`}
-                style={{ fontSize: l.id === 'ta' ? '0.85rem' : '0.78rem', padding: '0.28rem 0.6rem' }}
-              >
-                {l.label}
-              </button>
-            ))}
-          </div>
 
           {/* User Profile Pill or Auth Links */}
           {isAuthenticated ? (
@@ -365,9 +347,6 @@ export default function Navbar() {
           <Link to="/learn" onClick={() => setMobileOpen(false)} className="btn btn-outline" style={{ justifyContent: 'flex-start' }}>
             <BookOpen size={16} /><span>Learn Topics</span>
           </Link>
-          <Link to="/practice" onClick={() => setMobileOpen(false)} className="btn btn-outline" style={{ justifyContent: 'flex-start' }}>
-            <Sparkles size={16} /><span>Practice Questions</span>
-          </Link>
           {isAuthenticated && (
             <>
               <Link to="/bookmarks" onClick={() => setMobileOpen(false)} className="btn btn-outline" style={{ justifyContent: 'flex-start' }}>
@@ -383,7 +362,7 @@ export default function Navbar() {
             className="btn btn-secondary"
             style={{ justifyContent: 'flex-start' }}
           >
-            <Terminal size={16} /><span>Open Python Code Playground</span>
+            <Terminal size={16} /><span>Code Editor</span>
           </button>
           {!isAuthenticated && (
             <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>

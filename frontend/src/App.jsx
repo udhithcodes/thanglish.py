@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
@@ -24,8 +24,12 @@ import MistakesPage from './pages/MistakesPage';
 import HistoryPage from './pages/HistoryPage';
 import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/AdminPage';
+import OAuthCallbackPage from './pages/OAuthCallbackPage';
 
 export default function App() {
+  const location = useLocation();
+  const isLearnPage = location.pathname.startsWith('/learn') || location.pathname.startsWith('/topics');
+
   return (
     <ThemeProvider>
       <LanguageProvider>
@@ -34,12 +38,13 @@ export default function App() {
             <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%', overflowX: 'hidden' }}>
               <Navbar />
               <CodePlaygroundDrawer />
-              <main className="main-content" style={{ flex: 1, width: '100%', overflowX: 'hidden' }}>
+              <main className="main-content" style={{ flex: 1, width: '100%', overflowX: 'hidden', overflowY: isLearnPage ? 'hidden' : 'visible' }}>
                 <Routes>
                   {/* Public Routes */}
                   <Route path="/" element={<HomePage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/signup" element={<SignupPage />} />
+                  <Route path="/auth/callback/:provider" element={<OAuthCallbackPage />} />
                   
                   {/* W3Schools-Style Learn Topics Curriculum */}
                   <Route path="/learn" element={<LearnTopics />} />
@@ -107,7 +112,7 @@ export default function App() {
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </main>
-              <Footer />
+              {!isLearnPage && <Footer />}
             </div>
           </CodePlaygroundProvider>
         </AuthProvider>

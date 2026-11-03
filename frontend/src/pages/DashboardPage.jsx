@@ -124,9 +124,9 @@ export default function DashboardPage() {
               <span>📖 Continue Learning Topic</span>
             </Link>
 
-            <Link to="/practice" className="btn btn-secondary" style={{ gap: '0.45rem' }}>
+            <Link to="/learn" className="btn btn-secondary" style={{ gap: '0.45rem' }}>
               <Sparkles size={16} />
-              <span>✨ Practice Questions</span>
+              <span>✨ Practice in Curriculum</span>
             </Link>
 
             <button

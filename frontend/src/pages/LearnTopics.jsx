@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useCodePlayground } from '../context/CodePlaygroundContext';
@@ -333,6 +333,10 @@ export default function LearnTopics() {
   const [loadingQuestions, setLoadingQuestions] = useState(false);
   const [submittedAnswers, setSubmittedAnswers] = useState({});
   const [feedbacks, setFeedbacks] = useState({});
+  const [showAllQuestions, setShowAllQuestions] = useState(false);
+
+  // Dedicated ref to right content pane for independent scrolling control
+  const contentPaneRef = useRef(null);
 
   // Flatten all topics across modules
   const allTopics = useMemo(() => {
@@ -395,9 +399,19 @@ export default function LearnTopics() {
     return () => { isMounted = false; };
   }, [currentTopic]);
 
+  // Auto-scroll right pane to top on topic change
+  useEffect(() => {
+    if (contentPaneRef.current) {
+      contentPaneRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setShowAllQuestions(false);
+  }, [currentTopic?.slug]);
+
   const handleSelectTopic = (slug) => {
     setSearchParams({ topic: slug });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (contentPaneRef.current) {
+      contentPaneRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleAnswerSubmit = async (payload) => {
@@ -420,15 +434,23 @@ export default function LearnTopics() {
   };
 
   return (
-    <div className="animate-fade-in" style={{ backgroundColor: 'var(--bg-paper)', minHeight: 'calc(100vh - 68px)' }}>
-      {/* Top Banner & W3Schools Breadcrumbs */}
+    <div className="animate-fade-in learn-page-container" style={{ backgroundColor: 'var(--bg-paper)' }}>
+      {/* Top Banner & W3Schools Breadcrumbs (Fixed Sub-header at height 48px) */}
       <div style={{
+        position: 'sticky',
+        top: '64px',
+        zIndex: 90,
+        height: '48px',
         borderBottom: '1px solid var(--border-subtle)',
         backgroundColor: 'var(--surface-white)',
-        padding: '0.85rem 1.5rem',
+        padding: '0 1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        boxSizing: 'border-box'
       }}>
         <div style={{
           maxWidth: '1440px',
+          width: '100%',
           margin: '0 auto',
           display: 'flex',
           alignItems: 'center',
@@ -445,12 +467,26 @@ export default function LearnTopics() {
             <span style={{ color: 'var(--text-forest)', fontWeight: 700 }}>{currentTopic?.name}</span>
           </div>
 
-          {/* Quick Header Controls: Compare Mode + Code Playground */}
+          {/* Quick Header Controls: In-Page Language Switcher + Compare Mode + Code Playground */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            {/* In-page Language Switcher */}
+            <div className="lang-switcher" title="Switch Curriculum Language">
+              {languages.map(l => (
+                <button
+                  key={l.id}
+                  onClick={() => setLanguage(l.id)}
+                  className={`lang-btn ${language === l.id ? 'active' : ''}`}
+                  style={{ fontSize: l.id === 'ta' ? '0.82rem' : '0.76rem', padding: '0.22rem 0.55rem' }}
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
+
             <button
               onClick={toggleCompareMode}
               className={`btn btn-sm ${compareMode ? 'btn-primary' : 'btn-outline'}`}
-              style={{ borderRadius: 'var(--radius-full)', fontSize: '0.8rem', padding: '0.3rem 0.75rem' }}
+              style={{ borderRadius: 'var(--radius-full)', fontSize: '0.8rem', padding: '0.25rem 0.75rem' }}
               title="Toggle side-by-side English & Tanglish comparison"
             >
               <SplitSquareVertical size={14} />
@@ -468,7 +504,7 @@ export default function LearnTopics() {
                 borderRadius: 'var(--radius-full)',
                 border: '1px solid var(--border-olive)',
                 fontSize: '0.8rem',
-                padding: '0.3rem 0.75rem'
+                padding: '0.25rem 0.75rem'
               }}
             >
               <Terminal size={14} />
@@ -479,52 +515,41 @@ export default function LearnTopics() {
       </div>
 
       {/* Main 2-Column W3Schools Layout */}
-      <div style={{
-        maxWidth: '1440px',
-        margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: 'minmax(260px, 310px) 1fr',
-        gap: '2rem',
-        padding: '2rem 1.5rem 5rem',
-        boxSizing: 'border-box'
-      }} className="w3schools-layout">
+      <div className="learn-workspace-layout">
         
-        {/* ── Left Sidebar Curriculum (Sticky) ── */}
-        <aside style={{
-          backgroundColor: 'var(--surface-white)',
-          borderRadius: 'var(--radius-xl)',
-          border: '1px solid var(--border-color)',
-          padding: '1.25rem',
-          height: 'fit-content',
-          position: 'sticky',
-          top: '84px',
-          maxHeight: 'calc(100vh - 105px)',
-          display: 'flex',
-          flexDirection: 'column',
-          boxShadow: 'var(--shadow-sm)',
-        }}>
-          {/* Sidebar Search */}
-          <div style={{ position: 'relative', marginBottom: '1rem' }}>
-            <Search size={15} style={{
-              position: 'absolute',
-              left: '0.75rem',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: 'var(--text-olive)'
-            }} />
-            <input
-              type="text"
-              placeholder="Filter topics..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="form-input"
-              style={{
-                paddingLeft: '2.1rem',
-                fontSize: '0.82rem',
-                borderRadius: 'var(--radius-full)',
-                backgroundColor: 'var(--bg-paper)'
-              }}
-            />
+        {/* ── Left Sidebar Curriculum (Stays Fixed in Place) ── */}
+        <aside className="learn-sidebar-pane">
+          {/* Sidebar Search (Sticky Header) */}
+          <div style={{
+            position: 'sticky',
+            top: 0,
+            backgroundColor: '#FFFFFF',
+            zIndex: 10,
+            paddingBottom: '0.75rem',
+            marginBottom: '0.25rem',
+          }}>
+            <div style={{ position: 'relative' }}>
+              <Search size={15} style={{
+                position: 'absolute',
+                left: '0.75rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: 'var(--text-olive)'
+              }} />
+              <input
+                type="text"
+                placeholder="Filter topics..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="form-input"
+                style={{
+                  paddingLeft: '2.1rem',
+                  fontSize: '0.82rem',
+                  borderRadius: 'var(--radius-full)',
+                  backgroundColor: 'var(--bg-paper)'
+                }}
+              />
+            </div>
           </div>
 
           {/* Curriculum Modules Tree */}
@@ -600,8 +625,8 @@ export default function LearnTopics() {
           </div>
         </aside>
 
-        {/* ── Main Topic Content Area ── */}
-        <main style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        {/* ── Main Topic Content Area (ONLY This Side Scrolls Up and Down) ── */}
+        <main ref={contentPaneRef} className="learn-content-pane">
           
           {/* Topic Header Card */}
           <div className="card" style={{
@@ -946,7 +971,7 @@ export default function LearnTopics() {
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                {topicQuestions.slice(0, 5).map((q) => (
+                {(showAllQuestions ? topicQuestions : topicQuestions.slice(0, 5)).map((q) => (
                   <QuestionCard
                     key={q.id}
                     question={q}
@@ -957,13 +982,13 @@ export default function LearnTopics() {
                   />
                 ))}
 
-                {topicQuestions.length > 5 && (
+                {topicQuestions.length > 5 && !showAllQuestions && (
                   <div style={{ textAlign: 'center', padding: '1.5rem' }}>
                     <button
-                      onClick={() => navigate(`/practice?topic=${topicQuestions[0]?.topic_id}`)}
+                      onClick={() => setShowAllQuestions(true)}
                       className="btn btn-primary"
                     >
-                      <span>Solve All {topicQuestions.length} Questions for This Topic →</span>
+                      <span>Show All {topicQuestions.length} Practice Questions for This Topic →</span>
                     </button>
                   </div>
                 )}
@@ -1007,14 +1032,76 @@ export default function LearnTopics() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .w3schools-layout {
-            grid-template-columns: 1fr !important;
+        .learn-page-container {
+          height: calc(100vh - 64px);
+          overflow: hidden;
+        }
+
+        .learn-workspace-layout {
+          display: grid;
+          grid-template-columns: 300px minmax(0, 1fr);
+          gap: 1.5rem;
+          height: calc(100vh - 112px); /* Viewport height minus navbar (64px) + breadcrumb bar (48px) */
+          max-width: 1440px;
+          margin: 0 auto;
+          padding: 1.25rem 1.5rem;
+          overflow: hidden; /* Prevents the whole page from scrolling */
+          box-sizing: border-box;
+        }
+
+        .learn-sidebar-pane {
+          height: 100%;
+          overflow-y: auto; /* Allows scrolling the 50 topics list independently if needed */
+          overflow-x: hidden;
+          position: sticky;
+          top: 0;
+          background: #FFFFFF;
+          border: 1px solid #DCE8D5;
+          border-radius: 16px;
+          padding: 1rem;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .learn-content-pane {
+          height: 100%;
+          overflow-y: auto; /* ONLY the right side scrolls when the user scrolls */
+          overflow-x: hidden;
+          padding-right: 0.5rem;
+          padding-bottom: 3rem;
+          scroll-behavior: smooth;
+          box-sizing: border-box;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+        }
+
+        @media (max-width: 1023px) {
+          .learn-page-container {
+            height: auto !important;
+            overflow: visible !important;
           }
-          aside {
+          .learn-workspace-layout {
+            display: flex !important;
+            flex-direction: column !important;
+            height: auto !important;
+            overflow: visible !important;
+            padding: 1rem !important;
+            gap: 1.25rem !important;
+          }
+          .learn-sidebar-pane {
+            height: auto !important;
+            max-height: 340px !important;
             position: relative !important;
             top: 0 !important;
-            max-height: 380px !important;
+          }
+          .learn-content-pane {
+            height: auto !important;
+            overflow: visible !important;
+            padding-right: 0 !important;
+            padding-bottom: 2rem !important;
           }
         }
       `}</style>
